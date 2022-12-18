@@ -21,10 +21,10 @@ Here are some tips:
 * Search to find out if a similar question has been asked or if a similar
   issue/bug has been reported.
 * Try to define what you need help with:
-  * Is there something in particular you want to do?
-  * What problem are you encountering and what steps have you taken to try
+    * Is there something in particular you want to do?
+    * What problem are you encountering and what steps have you taken to try
         and fix it?
-  * Is there a concept you don't understand?
+    * Is there a concept you don't understand?
 * Provide sample code, such as a [CodeSandbox][cs] or a simple snippet, if
   possible.
 * Screenshots can help, but if there's important text such as code or error
@@ -45,7 +45,11 @@ See [`CONTRIBUTING.md`][contributing] on how to contribute.
 [coc]: https://github.com/lrstanley/helm-charts/blob/master/.github/CODE_OF_CONDUCT.md
 [contributing]: https://github.com/lrstanley/helm-charts/blob/master/.github/CONTRIBUTING.md
 [discussions]: https://github.com/lrstanley/helm-charts/discussions/categories/q-a
+[issues]: https://github.com/lrstanley/helm-charts/issues/new/choose
+[license]: https://github.com/lrstanley/helm-charts/blob/master/LICENSE
+[pull-requests]: https://github.com/lrstanley/helm-charts/issues/new/choose
 [security]: https://github.com/lrstanley/helm-charts/security/policy
+[support]: https://github.com/lrstanley/helm-charts/blob/master/.github/SUPPORT.md
 
 [xy]: https://meta.stackexchange.com/questions/66377/what-is-the-xy-problem/66378#66378
 [chat]: https://liam.sh/chat

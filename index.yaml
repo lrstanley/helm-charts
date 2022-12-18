@@ -1,0 +1,13 @@
+apiVersion: v1
+entries:
+  autodelete-discord:
+  - apiVersion: v2
+    created: "2022-12-18T01:20:34.439292791Z"
+    description: AutoDelete Discord Bot
+    digest: 8aa9a680d2081f86f8fb231a8ee35ad9136121d7df9657995db085fc3628daa2
+    name: autodelete-discord
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.1.1/autodelete-discord-0.1.1.tgz
+    version: 0.1.1
+generated: "2022-12-18T01:20:34.439298791Z"

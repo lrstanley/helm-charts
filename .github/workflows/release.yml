@@ -1,0 +1,23 @@
+name: release
+
+on:
+  push:
+    branches: [master]
+    paths-ignore: [".gitignore", "**/*.md", ".github/ISSUE_TEMPLATE/**"]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with: { fetch-depth: 0 }
+      - name: git-config
+        run: |
+          git config user.name "$GITHUB_ACTOR"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - uses: azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78
+        with:
+          version: v3.10.3
+      - uses: helm/chart-releaser-action@98bccfd32b0f76149d188912ac8e45ddd3f8695f
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

@@ -1,0 +1,12 @@
+{
+    "files.associations": {
+        "**/templates/**/*.yaml": "go-template",
+        "**/*.tpl": "go-template",
+        "**/*.txt": "go-template",
+        "**/*.yaml": "yaml",
+        "**/.helmignore": "ignore"
+    },
+    "[yaml]": {
+        "editor.formatOnSave": false
+    }
+}

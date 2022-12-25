@@ -35,7 +35,7 @@ spec:
             - --no-ssh
           env:
             {{- toYaml .Values.environment | nindent 12 }}
-            - name: DATABASE_URL
+            - name: PGWEB_DATABASE_URL
               value: "postgres://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@$(DATABASE_HOSTNAME):5432/$(DATABASE_NAME)"
           ports:
             - name: http

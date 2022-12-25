@@ -2,6 +2,15 @@ apiVersion: v1
 entries:
   autodelete-discord:
   - apiVersion: v2
+    created: "2022-12-25T19:24:57.059858942Z"
+    description: AutoDelete Discord Bot
+    digest: e1ea5f8be81b34ab367586c65200d6b0d95b1757b2d8120a0761bea5adc0228b
+    name: autodelete-discord
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.1.2/autodelete-discord-0.1.2.tgz
+    version: 0.1.2
+  - apiVersion: v2
     created: "2022-12-18T01:20:34.439292791Z"
     description: AutoDelete Discord Bot
     digest: 8aa9a680d2081f86f8fb231a8ee35ad9136121d7df9657995db085fc3628daa2
@@ -10,4 +19,14 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.1.1/autodelete-discord-0.1.1.tgz
     version: 0.1.1
-generated: "2022-12-18T01:20:34.439298791Z"
+  pgweb:
+  - apiVersion: v2
+    created: "2022-12-25T19:24:57.190479404Z"
+    description: A Helm chart for sosedoff/pgweb
+    digest: bceca3537b699d8e98bda1f75c4b6de54256d9f0fb8d4a400745cd0dfbea2dfd
+    name: pgweb
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-12-25T19:24:57.190490504Z"

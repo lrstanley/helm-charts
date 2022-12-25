@@ -21,6 +21,15 @@ entries:
     version: 0.1.1
   pgweb:
   - apiVersion: v2
+    created: "2022-12-25T20:34:57.112418304Z"
+    description: A Helm chart for sosedoff/pgweb
+    digest: 451bbebb1daed716dcca5e702580a472e09e3e64de6a415c2be2ddb24be3b152
+    name: pgweb
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/pgweb-1.0.2/pgweb-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v2
     created: "2022-12-25T20:32:47.297817164Z"
     description: A Helm chart for sosedoff/pgweb
     digest: 7e7997958194ce83665341ca376aab7115a8baac53d29fb1e51b1541de027c92
@@ -47,4 +56,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-25T20:32:47.297834564Z"
+generated: "2022-12-25T20:34:57.112810213Z"

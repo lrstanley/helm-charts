@@ -3,3 +3,15 @@ name: autodelete-discord
 description: AutoDelete Discord Bot
 type: application
 version: 0.1.2
+keywords:
+  - discord
+  - bot
+  - auto-delete
+  - golang
+sources:
+  - https://github.com/lrstanley/autodelete-docker
+  - https://github.com/riking/AutoDelete
+maintainers:
+  - name: lrstanley
+    email: me@liamstanley.io
+    url: https://liam.sh

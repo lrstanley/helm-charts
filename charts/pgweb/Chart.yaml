@@ -3,3 +3,14 @@ name: pgweb
 description: A Helm chart for sosedoff/pgweb
 type: application
 version: 1.0.2
+keywords:
+  - postgres
+  - database
+  - http-server
+  - ui
+sources:
+  - https://github.com/sosedoff/pgweb
+maintainers:
+  - name: lrstanley
+    email: me@liamstanley.io
+    url: https://liam.sh

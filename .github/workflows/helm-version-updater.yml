@@ -1,0 +1,20 @@
+name: helm-version-updater
+
+on:
+  push:
+    branches: [master]
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  helm-version-updater:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: denoland/setup-deno@9db7f66e8e16b5699a514448ce994936c63f0d54
+        with:
+          deno-version: v1.x
+      - run: deno run --allow-all ./helm-version-updater/main.ts
+        env:
+          GITHUB_TOKEN: ${{ secrets.USER_PAT }}

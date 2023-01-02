@@ -2,17 +2,17 @@ apiVersion: v2
 name: autodelete-discord
 description: AutoDelete Discord Bot
 type: application
-version: 0.1.2
-appVersion: 0.0.0
+version: 0.2.0
+appVersion: 1.1.0
 keywords:
   - discord
   - bot
   - auto-delete
   - golang
 sources:
-  - https://github.com/lrstanley/autodelete-docker
-  - https://github.com/riking/AutoDelete
+  - 'https://github.com/lrstanley/autodelete-docker'
+  - 'https://github.com/riking/AutoDelete'
 maintainers:
   - name: lrstanley
     email: me@liamstanley.io
-    url: https://liam.sh
+    url: 'https://liam.sh'

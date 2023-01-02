@@ -3,6 +3,7 @@ name: autodelete-discord
 description: AutoDelete Discord Bot
 type: application
 version: 0.1.2
+appVersion: 0.0.0
 keywords:
   - discord
   - bot

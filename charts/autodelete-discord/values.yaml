@@ -72,7 +72,6 @@ pvcTemplateSpec:
 # -- have an existing secret that contains the the "config.yml" key? supply the name here.
 existingConfigSecret: ""
 
-# -- otherwise, specify the configuration here. see config.go "type Config" for more fields.
 config:
   # -- discord application client id.
   clientid: 12345

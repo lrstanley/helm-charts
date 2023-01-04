@@ -1,3 +1,4 @@
+# -- number of replicas; this should generally always be 1.
 replicaCount: 1
 
 image:
@@ -61,6 +62,7 @@ tolerations:
     key: node.kubernetes.io/unschedulable
     operator: Exists
 
+# -- the pvc storage configuration to use for the persistent data for the bot.
 pvcTemplateSpec:
   accessModes: ["ReadWriteOnce"]
   resources:
@@ -70,15 +72,21 @@ pvcTemplateSpec:
 # -- have an existing secret that contains the the "config.yml" key? supply the name here.
 existingConfigSecret: ""
 
-# -- otherwise, specify the configuration here. see config.go "type Config" for more fields
+# -- otherwise, specify the configuration here. see config.go "type Config" for more fields.
 config:
+  # -- discord application client id.
   clientid: 12345
+  # -- discord application client secret.
   clientsecret: YOUR_SECRET
+  # -- discord application bot token.
   bottoken: YOUR_TOKEN
+  # -- discord admin user ID.
   adminuser: YOUR_ID
   http:
     listen: "0.0.0.0:2202"
     public: "https://example.com"
   backlog_limit: 200
+  # -- error log channel.
   errorlog: ""
+  # -- status message to show when clicking on the bot.
   statusmessage: ""

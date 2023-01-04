@@ -1,4 +1,4 @@
-<img title="Logo" src="https://liam.sh/-/gh/svg?title=pgweb&description=A Helm chart for sosedoff/pgweb&layout=left&icon=simple-icons%3Ahelm&icon.height=100&font=1.15&bg=topography&bgcolor=rgba(2%2C+0%2C+26%2C+1)&icon.color=rgba(222%2C+222%2C+222%2C+1)"></img>
+<img title="Logo" src="https://liam.sh/-/gh/svg?title=pgweb&description=A Helm chart for pgweb&layout=left&icon=simple-icons%3Ahelm&icon.height=100&font=1.15&bg=topography&bgcolor=rgba(2%2C+0%2C+26%2C+1)&icon.color=rgba(222%2C+222%2C+222%2C+1)"></img>
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
@@ -70,7 +70,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| environment | object | `{}` |  |
+| environment | object | `{}` | environment variables to set in the deployment. |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
 | image.repository | string | `"ghcr.io/sosedoff/pgweb"` |  |
@@ -78,9 +78,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | ingress.annotations | object | `{}` |  |
 | ingress.className | string | `""` |  |
 | ingress.enabled | bool | `false` |  |
-| ingress.hosts[0].host | string | `"chart-example.local"` |  |
-| ingress.hosts[0].paths[0].path | string | `"/"` |  |
-| ingress.hosts[0].paths[0].pathType | string | `"ImplementationSpecific"` |  |
+| ingress.hosts | list | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | hosts to include in the ingress resource. |
 | ingress.tls | list | `[]` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
@@ -92,9 +90,9 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | securityContext | object | `{}` |  |
 | service.port | int | `8081` |  |
 | service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` |  |
-| serviceAccount.create | bool | `true` |  |
-| serviceAccount.name | string | `""` |  |
+| serviceAccount.annotations | object | `{}` | annotations to add to the service account |
+| serviceAccount.create | bool | `true` | specifies whether a service account should be created |
+| serviceAccount.name | string | `""` | the name of the service account to use. if not set and create is true, a name is generated using the fullname template |
 
 ## :toolbox: Source References
 

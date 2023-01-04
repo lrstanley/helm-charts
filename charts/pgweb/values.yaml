@@ -71,6 +71,7 @@ resources:
   limits:
     memory: 100Mi
 
+# @ignored
 tolerations:
   - effect: NoExecute
     key: node.kubernetes.io/not-ready

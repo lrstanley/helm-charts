@@ -19,5 +19,6 @@ jobs:
         with:
           version: v3.10.3
       - uses: helm/chart-releaser-action@98bccfd32b0f76149d188912ac8e45ddd3f8695f
+        continue-on-error: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

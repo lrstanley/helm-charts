@@ -9,11 +9,11 @@ nameOverride: ""
 fullnameOverride: ""
 
 serviceAccount:
-  # specifies whether a service account should be created
+  # -- specifies whether a service account should be created
   create: true
-  # annotations to add to the service account
+  # -- annotations to add to the service account
   annotations: {}
-  # the name of the service account to use.
+  # -- the name of the service account to use.
   # if not set and create is true, a name is generated using the fullname template
   name: ""
 
@@ -40,6 +40,7 @@ resources:
 nodeSelector: {}
 affinity: {}
 
+# @ignored
 tolerations:
   - effect: NoExecute
     key: node.kubernetes.io/not-ready
@@ -66,12 +67,11 @@ pvcTemplateSpec:
     requests:
       storage: 1Gi
 
-# have an existing secret that contains the the "config.yml" key? supply the name here.
+# -- have an existing secret that contains the the "config.yml" key? supply the name here.
 existingConfigSecret: ""
 
-# otherwise, specify the configuration here.
+# -- otherwise, specify the configuration here. see config.go "type Config" for more fields
 config:
-  # see config.go "type Config" for more fields
   clientid: 12345
   clientsecret: YOUR_SECRET
   bottoken: YOUR_TOKEN

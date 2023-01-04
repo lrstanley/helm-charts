@@ -70,7 +70,13 @@ helm install my-release lrstanley/autodelete-discord -f values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| config | object | `{"adminuser":"YOUR_ID","backlog_limit":200,"bottoken":"YOUR_TOKEN","clientid":12345,"clientsecret":"YOUR_SECRET","errorlog":"","http":{"listen":"0.0.0.0:2202","public":"https://example.com"},"statusmessage":""}` | otherwise, specify the configuration here. see config.go "type Config" for more fields |
+| config | object | `{"adminuser":"YOUR_ID","backlog_limit":200,"bottoken":"YOUR_TOKEN","clientid":12345,"clientsecret":"YOUR_SECRET","errorlog":"","http":{"listen":"0.0.0.0:2202","public":"https://example.com"},"statusmessage":""}` | otherwise, specify the configuration here. see config.go "type Config" for more fields. |
+| config.adminuser | string | `"YOUR_ID"` | discord admin user ID. |
+| config.bottoken | string | `"YOUR_TOKEN"` | discord application bot token. |
+| config.clientid | int | `12345` | discord application client id. |
+| config.clientsecret | string | `"YOUR_SECRET"` | discord application client secret. |
+| config.errorlog | string | `""` | error log channel. |
+| config.statusmessage | string | `""` | status message to show when clicking on the bot. |
 | existingConfigSecret | string | `""` | have an existing secret that contains the the "config.yml" key? supply the name here. |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
@@ -80,9 +86,8 @@ helm install my-release lrstanley/autodelete-discord -f values.yaml
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
-| pvcTemplateSpec.accessModes[0] | string | `"ReadWriteOnce"` |  |
-| pvcTemplateSpec.resources.requests.storage | string | `"1Gi"` |  |
-| replicaCount | int | `1` |  |
+| pvcTemplateSpec | object | `{"accessModes":["ReadWriteOnce"],"resources":{"requests":{"storage":"1Gi"}}}` | the pvc storage configuration to use for the persistent data for the bot. |
+| replicaCount | int | `1` | number of replicas; this should generally always be 1. |
 | resources.limits.memory | string | `"50Mi"` |  |
 | resources.requests.cpu | string | `"10m"` |  |
 | resources.requests.memory | string | `"20Mi"` |  |

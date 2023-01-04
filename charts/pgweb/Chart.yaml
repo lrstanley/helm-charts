@@ -1,6 +1,6 @@
 apiVersion: v2
 name: pgweb
-description: A Helm chart for sosedoff/pgweb
+description: A Helm chart for pgweb
 type: application
 version: 1.0.2
 keywords:

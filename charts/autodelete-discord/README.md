@@ -70,12 +70,14 @@ helm install my-release lrstanley/autodelete-discord -f values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| config | object | `{"adminuser":"YOUR_ID","backlog_limit":200,"bottoken":"YOUR_TOKEN","clientid":12345,"clientsecret":"YOUR_SECRET","errorlog":"","http":{"listen":"0.0.0.0:2202","public":"https://example.com"},"statusmessage":""}` | otherwise, specify the configuration here. see config.go "type Config" for more fields. |
 | config.adminuser | string | `"YOUR_ID"` | discord admin user ID. |
+| config.backlog_limit | int | `200` |  |
 | config.bottoken | string | `"YOUR_TOKEN"` | discord application bot token. |
 | config.clientid | int | `12345` | discord application client id. |
 | config.clientsecret | string | `"YOUR_SECRET"` | discord application client secret. |
 | config.errorlog | string | `""` | error log channel. |
+| config.http.listen | string | `"0.0.0.0:2202"` |  |
+| config.http.public | string | `"https://example.com"` |  |
 | config.statusmessage | string | `""` | status message to show when clicking on the bot. |
 | existingConfigSecret | string | `""` | have an existing secret that contains the the "config.yml" key? supply the name here. |
 | fullnameOverride | string | `""` |  |

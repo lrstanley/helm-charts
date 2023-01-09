@@ -18,7 +18,7 @@ jobs:
       - uses: azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78
         with:
           version: v3.10.3
-      - uses: helm/chart-releaser-action@98bccfd32b0f76149d188912ac8e45ddd3f8695f
+      - uses: helm/chart-releaser-action@be16258da8010256c6e82849661221415f031968
         continue-on-error: true
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"

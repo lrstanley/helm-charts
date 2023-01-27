@@ -69,7 +69,7 @@ environment: {}
 resources:
   requests:
     cpu: 10m
-    memory: 50Mi
+    memory: 25Mi
   limits:
     memory: 100Mi
 

@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.2-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.3-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version--blue?style=flat-square">
@@ -88,7 +88,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | podSecurityContext | object | `{}` |  |
 | resources.limits.memory | string | `"100Mi"` |  |
 | resources.requests.cpu | string | `"10m"` |  |
-| resources.requests.memory | string | `"50Mi"` |  |
+| resources.requests.memory | string | `"25Mi"` |  |
 | securityContext | object | `{}` |  |
 | service.port | int | `8081` |  |
 | service.type | string | `"ClusterIP"` |  |

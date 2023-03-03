@@ -98,6 +98,6 @@ Below are a few guidelines if you would like to contribute:
 [discussions]: https://github.com/lrstanley/helm-charts/discussions
 [issues]: https://github.com/lrstanley/helm-charts/issues/new/choose
 [license]: https://github.com/lrstanley/helm-charts/blob/master/LICENSE
-[pull-requests]: https://github.com/lrstanley/helm-charts/issues/new/choose
+[pull-requests]: https://github.com/lrstanley/helm-charts/pulls?q=is%3Aopen+is%3Apr
 [security]: https://github.com/lrstanley/helm-charts/security/policy
 [support]: https://github.com/lrstanley/helm-charts/blob/master/.github/SUPPORT.md

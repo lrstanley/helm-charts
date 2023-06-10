@@ -3,6 +3,28 @@ entries:
   autodelete-discord:
   - apiVersion: v2
     appVersion: 1.2.0
+    created: "2023-06-10T05:49:35.352642552Z"
+    description: AutoDelete Discord Bot
+    digest: bcdc77824b617b36eb6847a9a90dd14bf9b2a4eb48607203f40ed30c3292eb84
+    keywords:
+    - discord
+    - bot
+    - auto-delete
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: autodelete-discord
+    sources:
+    - https://github.com/lrstanley/autodelete-docker
+    - https://github.com/riking/AutoDelete
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.4.1/autodelete-discord-0.4.1.tgz
+    version: 0.4.1
+  - apiVersion: v2
+    appVersion: 1.2.0
     created: "2023-06-10T05:22:37.144159302Z"
     description: AutoDelete Discord Bot
     digest: f57e82bf3c0702fe29f9d6d819ee18aa23fd62f4aff73be8d39f4c6088ae4cb3
@@ -42,6 +64,28 @@ entries:
     - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.1.1/autodelete-discord-0.1.1.tgz
     version: 0.1.1
   discord-alertmanager:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-06-10T05:49:35.464110256Z"
+    description: AlertManager Discord Bot
+    digest: 0bf6f386eeb8cb62f888c730b92f66e03de6a68fe35358eb4b86999ae38ae283
+    keywords:
+    - discord
+    - bot
+    - alertmanager
+    - prometheus
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: discord-alertmanager
+    sources:
+    - https://github.com/lrstanley/discord-alertmanager
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/discord-alertmanager-1.0.2/discord-alertmanager-1.0.2.tgz
+    version: 1.0.2
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2023-06-10T05:22:37.281647353Z"
@@ -121,4 +165,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-10T05:22:37.401066554Z"
+generated: "2023-06-10T05:49:35.46446616Z"

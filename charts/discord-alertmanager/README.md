@@ -1,15 +1,15 @@
 <p align="center">
-  <img title="Logo" src="https://liam.sh/-/gh/svg?title=pgweb&description=A Helm chart for pgweb&layout=left&icon=simple-icons%3Ahelm&icon.height=100&font=1.15&bg=topography&bgcolor=rgba(2%2C+0%2C+26%2C+1)"></img>
+  <img title="Logo" src="https://liam.sh/-/gh/svg?title=discord-alertmanager&description=AlertManager Discord Bot&layout=left&icon=simple-icons%3Ahelm&icon.height=100&font=1.15&bg=topography&bgcolor=rgba(2%2C+0%2C+26%2C+1)"></img>
 </p>
 
 <p align="center">
-  <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.4-blue?style=flat-square">
+  <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/discord-alertmanager/Chart.yaml">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.0-blue?style=flat-square">
   </a>
-  <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="App Version" src="https://img.shields.io/badge/app%20version--blue?style=flat-square">
+  <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/discord-alertmanager/Chart.yaml">
+    <img title="App Version" src="https://img.shields.io/badge/app%20version-1.0.0-blue?style=flat-square">
   </a>
-  <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
+  <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/discord-alertmanager/Chart.yaml">
     <img title="Chart Type" src="https://img.shields.io/badge/chart%20type-application-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/discussions/new?category=q-a">
@@ -46,25 +46,25 @@ helm repo add lrstanley https://helm.liam.sh/
 A simple install with default values:
 
 ```console
-helm install lrstanley/pgweb
+helm install lrstanley/discord-alertmanager
 ```
 
 To install the chart with the release name `my-release`:
 
 ```console
-helm install my-release lrstanley/pgweb
+helm install my-release lrstanley/discord-alertmanager
 ```
 
 To install with some set values:
 
 ```console
-helm install my-release lrstanley/pgweb --set values_key1=value1 --set values_key2=value2
+helm install my-release lrstanley/discord-alertmanager --set values_key1=value1 --set values_key2=value2
 ```
 
 To install with custom values file:
 
 ```console
-helm install my-release lrstanley/pgweb -f values.yaml
+helm install my-release lrstanley/discord-alertmanager -f values.yaml
 ```
 
 ## :gear: Helm Configuration Values
@@ -73,33 +73,28 @@ helm install my-release lrstanley/pgweb -f values.yaml
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | environment | object | `{}` | environment variables to set in the deployment. |
+| existingEnvironmentSecret | string | `""` | have an existing secret that contains sensitive env vars? supply the name here. |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"ghcr.io/sosedoff/pgweb"` |  |
-| image.tag | string | `"latest"` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
-| ingress.hosts | list | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | hosts to include in the ingress resource. |
-| ingress.tls | list | `[]` |  |
+| image.repository | string | `"ghcr.io/lrstanley/discord-alertmanager"` |  |
+| image.tag | string | `""` |  |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
 | podAnnotations | object | `{}` |  |
 | podSecurityContext | object | `{}` |  |
-| resources.limits.memory | string | `"100Mi"` |  |
+| replicaCount | int | `1` | number of replicas; this should generally always be 1. |
+| resources.limits.memory | string | `"50Mi"` |  |
 | resources.requests.cpu | string | `"10m"` |  |
-| resources.requests.memory | string | `"25Mi"` |  |
+| resources.requests.memory | string | `"20Mi"` |  |
 | securityContext | object | `{}` |  |
-| service.port | int | `8081` |  |
-| service.type | string | `"ClusterIP"` |  |
-| serviceAccount.annotations | object | `{}` | annotations to add to the service account |
-| serviceAccount.create | bool | `true` | specifies whether a service account should be created |
-| serviceAccount.name | string | `""` | the name of the service account to use. if not set and create is true, a name is generated using the fullname template |
+| serviceAccount.annotations | object | `{}` | annotations to add to the service account. |
+| serviceAccount.create | bool | `true` | specifies whether a service account should be created. |
+| serviceAccount.name | string | `""` | the name of the service account to use. if not set and create is true, a name is generated using the fullname template. |
 | tolerations | object | `{}` |  |
 
 ## :toolbox: Source References
 
-* <https://github.com/sosedoff/pgweb>
+* <https://github.com/lrstanley/discord-alertmanager>
 
 ## :wave: Chart Maintainers
 

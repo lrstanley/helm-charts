@@ -1,0 +1,63 @@
+# -- number of replicas; this should generally always be 1.
+replicaCount: 1
+
+image:
+  repository: ghcr.io/lrstanley/discord-alertmanager
+  pullPolicy: Always
+  tag: "" # defaults to the chart appVersion.
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # -- specifies whether a service account should be created.
+  create: true
+  # -- annotations to add to the service account.
+  annotations: {}
+  # -- the name of the service account to use.
+  # if not set and create is true, a name is generated using the fullname template.
+  name: ""
+
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 20Mi
+  limits:
+    memory: 50Mi
+
+nodeSelector: {}
+affinity: {}
+tolerations: {}
+
+# -- have an existing secret that contains sensitive env vars? supply the name here.
+existingEnvironmentSecret: ""
+
+# -- environment variables to set in the deployment.
+environment: {}
+  # - name: LOG_LEVEL
+  #   value: "info"
+  # - name: ALERTMANAGER_URL
+  #   value: "http://alertmanager.monitoring.svc.cluster.local:9093"
+  # - name: ALERTMANAGER_USERNAME
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: placeholder
+  #       key: username
+  # - name: ALERTMANAGER_PASSWORD
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: placeholder
+  #       key: password

@@ -2,6 +2,28 @@ apiVersion: v1
 entries:
   autodelete-discord:
   - apiVersion: v2
+    appVersion: 1.2.0
+    created: "2023-06-10T05:22:37.144159302Z"
+    description: AutoDelete Discord Bot
+    digest: f57e82bf3c0702fe29f9d6d819ee18aa23fd62f4aff73be8d39f4c6088ae4cb3
+    keywords:
+    - discord
+    - bot
+    - auto-delete
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: autodelete-discord
+    sources:
+    - https://github.com/lrstanley/autodelete-docker
+    - https://github.com/riking/AutoDelete
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.4.0/autodelete-discord-0.4.0.tgz
+    version: 0.4.0
+  - apiVersion: v2
     created: "2022-12-25T19:24:57.059858942Z"
     description: AutoDelete Discord Bot
     digest: e1ea5f8be81b34ab367586c65200d6b0d95b1757b2d8120a0761bea5adc0228b
@@ -19,7 +41,50 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.1.1/autodelete-discord-0.1.1.tgz
     version: 0.1.1
+  discord-alertmanager:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-06-10T05:22:37.281647353Z"
+    description: AlertManager Discord Bot
+    digest: fb6a045aa1d755009f5b83d7e28f4692a29f665821bd1bb715e6969280acd1f8
+    keywords:
+    - discord
+    - bot
+    - alertmanager
+    - prometheus
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: discord-alertmanager
+    sources:
+    - https://github.com/lrstanley/discord-alertmanager
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/discord-alertmanager-1.0.0/discord-alertmanager-1.0.0.tgz
+    version: 1.0.0
   pgweb:
+  - apiVersion: v2
+    created: "2023-06-10T05:22:37.401036853Z"
+    description: A Helm chart for pgweb
+    digest: 29212aedb2c53c92a7bf2b2a06cf124ca104210c016c19210545c28025b79b70
+    keywords:
+    - postgres
+    - database
+    - http-server
+    - ui
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: pgweb
+    sources:
+    - https://github.com/sosedoff/pgweb
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/pgweb-1.0.4/pgweb-1.0.4.tgz
+    version: 1.0.4
   - apiVersion: v2
     created: "2022-12-25T20:34:57.112418304Z"
     description: A Helm chart for sosedoff/pgweb
@@ -56,4 +121,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2022-12-25T20:34:57.112810213Z"
+generated: "2023-06-10T05:22:37.401066554Z"

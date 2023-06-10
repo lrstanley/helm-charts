@@ -66,6 +66,28 @@ entries:
   discord-alertmanager:
   - apiVersion: v2
     appVersion: 1.0.0
+    created: "2023-06-10T23:28:19.204706392Z"
+    description: AlertManager Discord Bot
+    digest: 3ead58680f42ea17119c3e226916f7ba174319f8d7a75b5de5b4a30f2ba15da5
+    keywords:
+    - discord
+    - bot
+    - alertmanager
+    - prometheus
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: discord-alertmanager
+    sources:
+    - https://github.com/lrstanley/discord-alertmanager
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/discord-alertmanager-1.0.4/discord-alertmanager-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v2
+    appVersion: 1.0.0
     created: "2023-06-10T06:00:14.109596272Z"
     description: AlertManager Discord Bot
     digest: 201b1bf14ae3f9cfeb0250dee75ae61879446c0800d354c5178cd6fc6c046e2a
@@ -187,4 +209,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-10T06:00:14.110359785Z"
+generated: "2023-06-10T23:28:19.204734691Z"

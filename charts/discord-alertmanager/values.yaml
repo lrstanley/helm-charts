@@ -42,8 +42,12 @@ nodeSelector: {}
 affinity: {}
 tolerations: {}
 
-# -- have an existing secret that contains sensitive env vars? supply the name here.
-existingEnvironmentSecret: ""
+# -- have an existing secret or config-map that contains sensitive env vars? supply the name here.
+environmentFrom: []
+  # - configMapRef:
+  #     name: your-configmap
+  # - secretRef:
+  #     name: your-secret
 
 # -- environment variables to set in the deployment.
 environment: {}

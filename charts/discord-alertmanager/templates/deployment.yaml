@@ -29,6 +29,10 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command:
             - /usr/local/bin/discord-alertmanager
+          {{ with .Values.environmentFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{ end }}
           env:
             {{- toYaml .Values.environment | nindent 12 }}
           resources:

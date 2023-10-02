@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31
+      - uses: denoland/setup-deno@0df5d9c641efdff149993c321fc27c11c5df8623
         with:
           deno-version: v1.x
       - run: deno run --allow-all ./helm-version-updater/main.ts

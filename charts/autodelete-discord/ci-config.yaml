@@ -1,4 +1,2 @@
 source:
-  repository: ghcr.io
-  owner: lrstanley
-  image: autodelete-docker
+  image: ghcr.io/lrstanley/autodelete-docker

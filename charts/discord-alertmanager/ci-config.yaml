@@ -1,4 +1,2 @@
 source:
-  repository: ghcr.io
-  owner: lrstanley
-  image: discord-alertmanager
+  image: ghcr.io/lrstanley/discord-alertmanager

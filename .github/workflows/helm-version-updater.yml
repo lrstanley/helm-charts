@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: lrstanley/helm-version-updater@v0.0.2
+      - uses: lrstanley/helm-version-updater@v0.0.3
         with:
           check-dir: charts/

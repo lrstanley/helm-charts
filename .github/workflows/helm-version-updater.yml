@@ -23,7 +23,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        change: ${{ fromJSON(needs.get-charts.outputs.changeset) }}
+        change: ${{ fromJSON(needs.get-charts.outputs.changeset).changes }}
     steps:
       - uses: actions/checkout@v4
       - uses: lrstanley/helm-version-updater@master

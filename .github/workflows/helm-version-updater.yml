@@ -36,7 +36,7 @@ jobs:
           token: ${{ secrets.USER_PAT }}
           add-paths: "${{ matrix.change.chart.path }}"
           title: >-
-            update chart
+            update chart ${{ matrix.change.chart.name }}
             from ${{ matrix.change.old_version }}
             to ${{ matrix.change.new_version }}
           commit-message: >-
@@ -44,7 +44,7 @@ jobs:
             from ${{ matrix.change.old_version }}
             to ${{ matrix.change.new_version }}
           body: |
-            Updating chart `${{ matrix.change.chart.name }}`
+            Updating chart `${{ matrix.change.chart.name }}`:
 
             - Bumping **version** from `${{ matrix.change.old_version }}` to `${{ matrix.change.new_version }}`.
             - Bumping **appVersion** from `${{ matrix.change.old_app_version }}` to `${{ matrix.change.new_app_version }}`.
@@ -54,5 +54,5 @@ jobs:
           branch: "chore/version-updater/${{ matrix.change.chart.name }}"
           delete-branch: true
           base: master
-          labels: "chore,version-updater,chart,chart-${{ matrix.change.chart.name }}"
+          labels: "chore,chart,chart-${{ matrix.change.chart.name }}"
           assignees: "lrstanley"

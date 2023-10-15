@@ -3,6 +3,28 @@ entries:
   autodelete-discord:
   - apiVersion: v2
     appVersion: 1.2.0
+    created: "2023-10-15T06:49:29.453264924Z"
+    description: AutoDelete Discord Bot
+    digest: e1b13b291313ab5c474ec2dcf504dfc4a54d21dd9c38cc49e89a98034d8e865d
+    keywords:
+    - discord
+    - bot
+    - auto-delete
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: autodelete-discord
+    sources:
+    - https://github.com/lrstanley/autodelete-docker
+    - https://github.com/riking/AutoDelete
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.5.0/autodelete-discord-0.5.0.tgz
+    version: 0.5.0
+  - apiVersion: v2
+    appVersion: 1.2.0
     created: "2023-06-10T05:49:35.352642552Z"
     description: AutoDelete Discord Bot
     digest: bcdc77824b617b36eb6847a9a90dd14bf9b2a4eb48607203f40ed30c3292eb84
@@ -209,4 +231,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2023-06-10T23:28:19.204734691Z"
+generated: "2023-10-15T06:49:29.608984091Z"

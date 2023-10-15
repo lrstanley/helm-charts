@@ -56,4 +56,3 @@ jobs:
           base: master
           labels: "chore,version-updater,chart,chart-${{ matrix.change.chart.name }}"
           assignees: "lrstanley"
-          reviewers: "lrstanley"

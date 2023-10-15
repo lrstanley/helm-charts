@@ -6,10 +6,10 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  action-test:
+  helm-version-updater:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: lrstanley/helm-version-updater@master
+      - uses: lrstanley/helm-version-updater@v0.0.2
         with:
           check-dir: tests/

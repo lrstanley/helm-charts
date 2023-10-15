@@ -6,13 +6,10 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  helm-version-updater:
+  action-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: denoland/setup-deno@61fe2df320078202e33d7d5ad347e7dcfa0e8f31
+      - uses: lrstanley/helm-version-updater@master
         with:
-          deno-version: v1.x
-      - run: deno run --allow-all ./helm-version-updater/main.ts
-        env:
-          GITHUB_TOKEN: ${{ secrets.USER_PAT }}
+          check-dir: tests/

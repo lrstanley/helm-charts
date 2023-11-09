@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/autodelete-discord/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-0.6.0-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-0.6.1-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/autodelete-discord/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-1.2.0-blue?style=flat-square">
@@ -81,7 +81,7 @@ helm install my-release lrstanley/autodelete-discord -f values.yaml
 | config.http.listen | string | `"0.0.0.0:2202"` |  |
 | config.http.public | string | `"https://example.com"` |  |
 | config.statusmessage | string | `""` | status message to show when clicking on the bot. |
-| environment | object | `{}` | environment variables to set in the deployment. |
+| environment | list | `[]` | environment variables to set in the deployment. |
 | environmentFrom | list | `[]` | have an existing secret or config-map that contains sensitive env vars? supply the name here. |
 | existingConfigSecret | string | `""` | have an existing secret that contains the the "config.yml" key? supply the name here. |
 | fullnameOverride | string | `""` |  |

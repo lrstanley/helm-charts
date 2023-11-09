@@ -9,14 +9,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      # - name: generate-helm-readmes
-      #   uses: docker://jnorwood/helm-docs:latest
       - name: generate
         continue-on-error: true
         run: |
           set -e
 
-          docker run --rm -v "$PWD:/helm-docs" jnorwood/helm-docs:v1.11.3 --template-files /helm-docs/.github/HELM_README.md.gotmpl
+          docker run --rm -v "$PWD:/helm-docs" jnorwood/helm-docs:v1.11.2 --template-files /helm-docs/.github/HELM_README.md.gotmpl
 
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"

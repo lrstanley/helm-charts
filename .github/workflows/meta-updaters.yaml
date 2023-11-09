@@ -1,0 +1,54 @@
+name: updater
+
+on:
+  schedule:
+    - cron: "0 12 * * 5" # every Friday at noon
+  workflow_dispatch: {}
+
+jobs:
+  helm-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: release
+        uses: lrstanley/.github/composite/get-release-version@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: norwoodj/helm-docs
+      - id: version
+        run: |
+          echo "previous_version=$(sed -rn 's#.*/helm-docs:([^ ]+).*#\1#p' .github/workflows/helm-docs.yml)" >> "$GITHUB_OUTPUT"
+          sed -ri 's#/helm-docs:[^ ]+#/helm-docs:'${{ steps.release.outputs.version }}'#g' .github/workflows/helm-docs.yml
+      - uses: lrstanley/.github/composite/pr-version-updater@master
+        with:
+          token: ${{ secrets.USER_PAT }}
+          tool: helm-docs
+          chore: deps
+          version: ${{ steps.release.outputs.version }}
+          previous_version: ${{ steps.version.outputs.previous_version }}
+          paths: |
+            .github/workflows/*
+          repo: ${{ steps.release.outputs.repo }}
+  helm:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - id: release
+        uses: lrstanley/.github/composite/get-release-version@master
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repo: helm/helm
+      - id: version
+        run: |
+          echo "previous_version=$(sed -rn 's#.*version: ([^ ]+).*#\1#p' .github/workflows/release.yml)" >> "$GITHUB_OUTPUT"
+          sed -ri 's#/version: [^ ]+#/version: '${{ steps.release.outputs.version }}'#g' .github/workflows/release.yml
+      - uses: lrstanley/.github/composite/pr-version-updater@master
+        with:
+          token: ${{ secrets.USER_PAT }}
+          tool: helm
+          chore: deps
+          version: ${{ steps.release.outputs.version }}
+          previous_version: ${{ steps.version.outputs.previous_version }}
+          paths: |
+            .github/workflows/*
+          repo: ${{ steps.release.outputs.repo }}

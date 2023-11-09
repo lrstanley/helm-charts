@@ -89,7 +89,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | dex.config.staticClients[0].secret | string | `"outline-client-secret"` |  |
 | dex.config.storage.type | string | `"memory"` |  |
 | dex.enabled | bool | `false` |  |
-| dex.ingress | object | `{"className":"","enabled":true,"hosts":[{"host":"chart-example.local","paths":[{"path":"/dex","pathType":"ImplementationSpecific"}]}]}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |
+| dex.ingress | object | `{"className":"","enabled":true,"hosts":[]}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |
 | dex.resources.limits | object | `{"memory":"128Mi"}` | the resources limits for dex. |
 | dex.resources.requests | object | `{"cpu":"25m","memory":"128Mi"}` | the resources requests for dex. |
 | environment | object | `{}` | environment variables to set in the deployment. |
@@ -101,9 +101,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | ingress.annotations | object | `{}` | additional annotations to add to the ingress resource. |
 | ingress.className | string | `""` | class name to use for the ingress resource. |
 | ingress.enabled | bool | `true` | set to true to create an ingress resource. |
-| ingress.hosts | list | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | hosts to include in the ingress resource. |
-| ingress.hosts[0] | object | `{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}` | host name to use. |
-| ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"ImplementationSpecific"}` | path to use, generally shouldn't be changed in most cases. |
+| ingress.hosts | list | `[]` | hosts to include in the ingress resource. |
 | ingress.tls | list | `[]` |  |
 | initContainers | list | `[]` | additional init containers to add to the deployment. |
 | minio.apiIngress | object | `{"enabled":true,"hostname":"s3.chart-example.local","ingressClassName":""}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |

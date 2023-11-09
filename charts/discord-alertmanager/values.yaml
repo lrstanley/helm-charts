@@ -2,7 +2,9 @@
 replicaCount: 1
 
 image:
+  # -- the image repository to pull from.
   repository: ghcr.io/lrstanley/discord-alertmanager
+  # -- the image pull policy (generally shouldn't be changed).
   pullPolicy: IfNotPresent
   # -- image tag to use. defaults to the chart's appVersion.
   tag: ""
@@ -19,6 +21,7 @@ serviceAccount:
   # if not set and create is true, a name is generated using the fullname template.
   name: ""
 
+# -- annotations to append to the deployment.
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -32,16 +35,20 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+# -- additional init containers to add to the deployment.
+initContainers: []
+  # - name: wait-for-postgresql
+  #   image: busybox:latest
+  #   command: ['sh', '-c', 'do-something-here']
+
 resources:
+  # -- resource requests.
   requests:
     cpu: 10m
     memory: 20Mi
+  # -- resource limits. generally don't recommend applying a limit on cpu.
   limits:
     memory: 50Mi
-
-nodeSelector: {}
-affinity: {}
-tolerations: {}
 
 # -- have an existing secret or config-map that contains sensitive env vars? supply the name here.
 environmentFrom: []
@@ -66,3 +73,7 @@ environment: {}
   #     secretKeyRef:
   #       name: placeholder
   #       key: password
+
+nodeSelector: {}
+affinity: {}
+tolerations: {}

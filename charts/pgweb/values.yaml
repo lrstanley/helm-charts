@@ -1,7 +1,10 @@
 image:
+  # -- the image repository to pull from.
   repository: ghcr.io/sosedoff/pgweb
-  pullPolicy: Always
-  tag: latest
+  # -- the image pull policy (generally shouldn't be changed).
+  pullPolicy: IfNotPresent
+  # -- the image tag to use. defaults to the appVersion in Chart.yaml.
+  tag: ""
 
 nameOverride: ""
 fullnameOverride: ""
@@ -15,6 +18,7 @@ serviceAccount:
   # if not set and create is true, a name is generated using the fullname template
   name: ""
 
+# -- annotations to append to the deployment.
 podAnnotations: {}
 
 podSecurityContext: {}
@@ -28,26 +32,44 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+# -- additional init containers to add to the deployment.
+initContainers: []
+  # - name: wait-for-postgresql
+  #   image: busybox:latest
+  #   command: ['sh', '-c', 'do-something-here']
+
 service:
   type: ClusterIP
   port: 8081
 
 ingress:
+  # -- set to true to create an ingress resource.
   enabled: false
+  # -- class name to use for the ingress resource.
   className: ""
+  # -- additional annotations to add to the ingress resource.
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   # -- hosts to include in the ingress resource.
   hosts:
+    # -- host name to use.
     - host: chart-example.local
       paths:
+        # -- path to use, generally shouldn't be changed in most cases.
         - path: /
           pathType: ImplementationSpecific
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+# -- have an existing secret or config-map that contains sensitive env vars? supply the name here.
+environmentFrom: []
+  # - configMapRef:
+  #     name: your-configmap
+  # - secretRef:
+  #     name: your-secret
 
 # -- environment variables to set in the deployment.
 environment: {}
@@ -67,9 +89,11 @@ environment: {}
   #   value: app
 
 resources:
+  # -- resource requests.
   requests:
     cpu: 10m
     memory: 25Mi
+  # -- resource limits. generally don't recommend applying a limit on cpu.
   limits:
     memory: 100Mi
 

@@ -53,8 +53,10 @@ ingress:
     # kubernetes.io/tls-acme: "true"
   # -- hosts to include in the ingress resource.
   hosts:
+    # -- host name to use.
     - host: chart-example.local
       paths:
+        # -- path to use, generally shouldn't be changed in most cases.
         - path: /
           pathType: ImplementationSpecific
   tls: []
@@ -94,9 +96,11 @@ environment: {}
   #   value: "openid profile email"
 
 resources:
+  # -- resource requests.
   requests:
     cpu: 250m
     memory: 1Gi
+  # -- resource limits. generally don't recommend applying a limit on cpu.
   limits:
     memory: 1Gi
 
@@ -104,7 +108,7 @@ nodeSelector: {}
 affinity: {}
 tolerations: {}
 
-# -- application settings for outline.
+# application settings for outline.
 outline:
   # -- generate encryption keys. if disabled, you must pass SECRET_KEY and
   # UTILS_SECRET environment variables.
@@ -169,7 +173,7 @@ outline:
     requests: 1000
     durationWindow: 60
 
-# -- redis sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/redis
+# redis sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/redis
 redis:
   # -- set to true to have the chart create a redis instance (and configure outline to use it).
   enabled: true
@@ -237,7 +241,7 @@ postgresql:
       limits:
         memory: 512Mi
 
-# -- minio sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/minio
+# minio sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/minio
 minio:
   enabled: true
   disableWebUI: true
@@ -280,7 +284,7 @@ minio:
     # force root credentials (user and password) to be reconfigured every time they change in secrets.
     forceNewKeys: true
 
-# -- dex sub-chart configuration. dex can be used to easily configure most oauth2
+# dex sub-chart configuration. dex can be used to easily configure most oauth2
 # providers via OIDC, without having to have the enterprise version of Outline. this
 # should allow pointing to things like GitHub.
 # more info: https://artifacthub.io/packages/helm/dex/dex
@@ -304,7 +308,7 @@ dex:
     # -- the resources limits for dex.
     limits:
       memory: 128Mi
-  # -- config is the dex config to use. can also be pulled from a secret directly.
+  # config is the dex config to use. can also be pulled from a secret directly.
   config:
     storage:
       type: memory

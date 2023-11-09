@@ -37,6 +37,8 @@ Common labels
 helm.sh/chart: {{ include "autodelete-discord.chart" . }}
 {{ include "autodelete-discord.selectorLabels" . }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/part-of: {{ .Chart.Name | quote }}
+app.kubernetes.io/version: {{ .Values.image.tag | default .Chart.AppVersion | quote }}
 {{- end }}
 
 {{/*

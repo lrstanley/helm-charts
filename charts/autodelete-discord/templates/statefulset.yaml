@@ -22,12 +22,22 @@ spec:
       serviceAccountName: {{ include "autodelete-discord.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      {{- with .Values.initContainers }}
+      initContainers:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          {{ with .Values.environmentFrom }}
+          envFrom:
+            {{- toYaml . | nindent 12 }}
+          {{ end }}
+          env:
+            {{- toYaml .Values.environment | nindent 12 }}
           ports:
             - containerPort: 2202
               name: http

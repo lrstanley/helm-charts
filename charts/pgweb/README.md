@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.6-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.7-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.14.2-blue?style=flat-square">
@@ -72,7 +72,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| environment | object | `{}` | environment variables to set in the deployment. |
+| environment | list | `[]` | environment variables to set in the deployment. |
 | environmentFrom | list | `[]` | have an existing secret or config-map that contains sensitive env vars? supply the name here. |
 | fullnameOverride | string | `""` |  |
 | image.pullPolicy | string | `"IfNotPresent"` | the image pull policy (generally shouldn't be changed). |

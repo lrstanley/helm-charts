@@ -20,11 +20,11 @@ jobs:
   helm-version-updater:
     runs-on: ubuntu-latest
     needs: [get-charts]
-    if: ${{ needs.get-charts.outputs.changeset != '' && needs.get-charts.outputs.changeset != '{}' }}
+    if: ${{ fromJSON(needs.get-charts.outputs.changeset).changeset != null }}
     strategy:
       fail-fast: false
       matrix:
-        change: ${{ (needs.get-charts.outputs.changeset != '' && fromJSON(needs.get-charts.outputs.changeset) || '{}').changes }}
+        change: ${{ fromJSON(needs.get-charts.outputs.changeset).changes }}
     steps:
       - uses: actions/checkout@v4
       - uses: lrstanley/helm-version-updater@master

@@ -4,10 +4,10 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.4-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.5-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="App Version" src="https://img.shields.io/badge/app%20version--blue?style=flat-square">
+    <img title="App Version" src="https://img.shields.io/badge/app%20version-0.14.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
     <img title="Chart Type" src="https://img.shields.io/badge/chart%20type-application-blue?style=flat-square">
@@ -73,22 +73,25 @@ helm install my-release lrstanley/pgweb -f values.yaml
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
 | environment | object | `{}` | environment variables to set in the deployment. |
+| environmentFrom | list | `[]` | have an existing secret or config-map that contains sensitive env vars? supply the name here. |
 | fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"Always"` |  |
-| image.repository | string | `"ghcr.io/sosedoff/pgweb"` |  |
-| image.tag | string | `"latest"` |  |
-| ingress.annotations | object | `{}` |  |
-| ingress.className | string | `""` |  |
-| ingress.enabled | bool | `false` |  |
+| image.pullPolicy | string | `"IfNotPresent"` | the image pull policy (generally shouldn't be changed). |
+| image.repository | string | `"ghcr.io/sosedoff/pgweb"` | the image repository to pull from. |
+| image.tag | string | `""` | the image tag to use. defaults to the appVersion in Chart.yaml. |
+| ingress.annotations | object | `{}` | additional annotations to add to the ingress resource. |
+| ingress.className | string | `""` | class name to use for the ingress resource. |
+| ingress.enabled | bool | `false` | set to true to create an ingress resource. |
 | ingress.hosts | list | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | hosts to include in the ingress resource. |
+| ingress.hosts[0] | object | `{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}` | host name to use. |
+| ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"ImplementationSpecific"}` | path to use, generally shouldn't be changed in most cases. |
 | ingress.tls | list | `[]` |  |
+| initContainers | list | `[]` | additional init containers to add to the deployment. |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
+| podAnnotations | object | `{}` | annotations to append to the deployment. |
 | podSecurityContext | object | `{}` |  |
-| resources.limits.memory | string | `"100Mi"` |  |
-| resources.requests.cpu | string | `"10m"` |  |
-| resources.requests.memory | string | `"25Mi"` |  |
+| resources.limits | object | `{"memory":"100Mi"}` | resource limits. generally don't recommend applying a limit on cpu. |
+| resources.requests | object | `{"cpu":"10m","memory":"25Mi"}` | resource requests. |
 | securityContext | object | `{}` |  |
 | service.port | int | `8081` |  |
 | service.type | string | `"ClusterIP"` |  |

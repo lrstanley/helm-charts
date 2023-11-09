@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.0-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.1-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.72.2-blue?style=flat-square">
@@ -72,8 +72,23 @@ helm install my-release lrstanley/outline -f values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
-| dex | object | `{"config":{"connectors":[{"config":{"clientID":"your-github-client-id","clientSecret":"your-github-client-secret","loadAllGroups":true,"redirectURI":"https://chart-example.local/dex/callback","teamNameField":"slug","useLoginAsID":false},"id":"github","name":"GitHub","type":"github"}],"issuer":"http://my-issuer-url.com","oauth2":{"skipApprovalScreen":true},"staticClients":[{"id":"outline-client-id","name":"Outline","redirectURIs":["https://chart-example.local/auth/oidc.callback"],"secret":"outline-client-secret"}],"storage":{"type":"memory"}},"enabled":false,"ingress":{"className":"","enabled":true,"hosts":[{"host":"chart-example.local","paths":[{"path":"/dex","pathType":"ImplementationSpecific"}]}]},"resources":{"limits":{"memory":"128Mi"},"requests":{"cpu":"25m","memory":"128Mi"}}}` | dex sub-chart configuration. dex can be used to easily configure most oauth2 providers via OIDC, without having to have the enterprise version of Outline. this should allow pointing to things like GitHub. more info: https://artifacthub.io/packages/helm/dex/dex |
-| dex.config | object | `{"connectors":[{"config":{"clientID":"your-github-client-id","clientSecret":"your-github-client-secret","loadAllGroups":true,"redirectURI":"https://chart-example.local/dex/callback","teamNameField":"slug","useLoginAsID":false},"id":"github","name":"GitHub","type":"github"}],"issuer":"http://my-issuer-url.com","oauth2":{"skipApprovalScreen":true},"staticClients":[{"id":"outline-client-id","name":"Outline","redirectURIs":["https://chart-example.local/auth/oidc.callback"],"secret":"outline-client-secret"}],"storage":{"type":"memory"}}` | config is the dex config to use. can also be pulled from a secret directly. |
+| dex.config.connectors[0].config.clientID | string | `"your-github-client-id"` |  |
+| dex.config.connectors[0].config.clientSecret | string | `"your-github-client-secret"` |  |
+| dex.config.connectors[0].config.loadAllGroups | bool | `true` |  |
+| dex.config.connectors[0].config.redirectURI | string | `"https://chart-example.local/dex/callback"` |  |
+| dex.config.connectors[0].config.teamNameField | string | `"slug"` |  |
+| dex.config.connectors[0].config.useLoginAsID | bool | `false` |  |
+| dex.config.connectors[0].id | string | `"github"` |  |
+| dex.config.connectors[0].name | string | `"GitHub"` |  |
+| dex.config.connectors[0].type | string | `"github"` |  |
+| dex.config.issuer | string | `"http://my-issuer-url.com"` |  |
+| dex.config.oauth2.skipApprovalScreen | bool | `true` |  |
+| dex.config.staticClients[0].id | string | `"outline-client-id"` |  |
+| dex.config.staticClients[0].name | string | `"Outline"` |  |
+| dex.config.staticClients[0].redirectURIs[0] | string | `"https://chart-example.local/auth/oidc.callback"` |  |
+| dex.config.staticClients[0].secret | string | `"outline-client-secret"` |  |
+| dex.config.storage.type | string | `"memory"` |  |
+| dex.enabled | bool | `false` |  |
 | dex.ingress | object | `{"className":"","enabled":true,"hosts":[{"host":"chart-example.local","paths":[{"path":"/dex","pathType":"ImplementationSpecific"}]}]}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |
 | dex.resources.limits | object | `{"memory":"128Mi"}` | the resources limits for dex. |
 | dex.resources.requests | object | `{"cpu":"25m","memory":"128Mi"}` | the resources requests for dex. |
@@ -87,14 +102,23 @@ helm install my-release lrstanley/outline -f values.yaml
 | ingress.className | string | `""` | class name to use for the ingress resource. |
 | ingress.enabled | bool | `true` | set to true to create an ingress resource. |
 | ingress.hosts | list | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | hosts to include in the ingress resource. |
+| ingress.hosts[0] | object | `{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}` | host name to use. |
+| ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"ImplementationSpecific"}` | path to use, generally shouldn't be changed in most cases. |
 | ingress.tls | list | `[]` |  |
 | initContainers | list | `[]` | additional init containers to add to the deployment. |
-| minio | object | `{"apiIngress":{"enabled":true,"hostname":"s3.chart-example.local","ingressClassName":""},"auth":{"existingSecret":"outline-minio-credentials","forceNewKeys":true,"generate":true,"rootPassword":"","rootUser":""},"defaultBuckets":"ol-data","disableWebUI":true,"enabled":true,"extraEnvVars":[{"name":"MINIO_UPDATE","value":"off"}],"forceUrlAsHttps":true,"mode":"standalone","persistence":{"enabled":true,"size":"10Gi","storageClass":""},"resources":{"limits":{"memory":"512Mi"},"requests":{"cpu":"25m","memory":"512Mi"}}}` | minio sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/minio |
 | minio.apiIngress | object | `{"enabled":true,"hostname":"s3.chart-example.local","ingressClassName":""}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |
 | minio.auth.existingSecret | string | `"outline-minio-credentials"` | the existing secret to use for minio auth. |
+| minio.auth.forceNewKeys | bool | `true` |  |
 | minio.auth.generate | bool | `true` | set to true to generate a set of credentials (and configure outline to use it). |
 | minio.auth.rootPassword | string | `""` | minio root password. leave empty (with generate set to true) to generate a password automatically. |
 | minio.auth.rootUser | string | `""` | minio root username. leave empty (with generate set to true) to generate a username automatically. |
+| minio.defaultBuckets | string | `"ol-data"` |  |
+| minio.disableWebUI | bool | `true` |  |
+| minio.enabled | bool | `true` |  |
+| minio.extraEnvVars[0].name | string | `"MINIO_UPDATE"` |  |
+| minio.extraEnvVars[0].value | string | `"off"` |  |
+| minio.forceUrlAsHttps | bool | `true` |  |
+| minio.mode | string | `"standalone"` |  |
 | minio.persistence.enabled | bool | `true` | set to true to enable persistence for minio. |
 | minio.persistence.size | string | `"10Gi"` | persistence size to use for minio. |
 | minio.persistence.storageClass | string | `""` | storage class to configure for the persistance storage. |
@@ -102,12 +126,12 @@ helm install my-release lrstanley/outline -f values.yaml
 | minio.resources.requests | object | `{"cpu":"25m","memory":"512Mi"}` | the resources requests for minio. |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| outline | object | `{"allowedDomains":"","cdnUrl":"","collaborationUrl":"","database":{"connectionPoolMax":"","connectionPoolMin":"","encryptionMode":"disable"},"debug":false,"defaultLanguage":"en_US","enableUpdates":false,"fileStorage":{"localRootDir":"/var/lib/outline/data","system":"s3","uploadMaxSize":26214400},"forceHttps":true,"generateEncryptionKeys":true,"logLevel":"info","maximumImportSize":5120000,"rateLimiter":{"durationWindow":60,"enabled":true,"requests":1000},"url":"","webConcurrency":2}` | application settings for outline. |
 | outline.allowedDomains | string | `""` | comma separated list of domains to be allowed to signin to the wiki. if not set, all domains are allowed by default when using Google OAuth to signin. |
 | outline.cdnUrl | string | `""` | if using a Cloudfront/Cloudflare distribution or similar it can be set below. this will cause paths to javascript, stylesheets, and images to be updated to the hostname defined in CDN_URL. in your CDN configuration the origin server should be set to the same as url. |
 | outline.collaborationUrl | string | `""` | see https://github.com/outline/outline/blob/main/docs/SERVICES.md for running a separate collaboration server, for normal operation this does not need to be set. |
 | outline.database.connectionPoolMax | string | `""` | database maximum connection pool amount. |
 | outline.database.connectionPoolMin | string | `""` | database minimum connection pool amount. |
+| outline.database.encryptionMode | string | `"disable"` |  |
 | outline.debug | bool | `false` | debug flag. may not need if your reverse proxy already logs incoming http requests and this ends up being duplicative. |
 | outline.defaultLanguage | string | `"en_US"` | the default interface language. see translate.getoutline.com for a list of available language codes and their rough percentage translated. |
 | outline.enableUpdates | bool | `false` | set to true to have outline check for updates by sending anonymized usage data to maintainers. |
@@ -118,6 +142,9 @@ helm install my-release lrstanley/outline -f values.yaml
 | outline.generateEncryptionKeys | bool | `true` | generate encryption keys. if disabled, you must pass SECRET_KEY and UTILS_SECRET environment variables. |
 | outline.logLevel | string | `"info"` | configure lowest severity level for server logs. should be one of error, warn, info, http, verbose, debug and silly. |
 | outline.maximumImportSize | int | `5120000` | override the maximum size of document imports, could be required if you have especially large word documents with embedded imagery. |
+| outline.rateLimiter.durationWindow | int | `60` |  |
+| outline.rateLimiter.enabled | bool | `true` |  |
+| outline.rateLimiter.requests | int | `1000` |  |
 | outline.url | string | `""` | url to use for outline. if not set, the first ingress host will be used (and https will only be configured if the tls section is filled out). |
 | outline.webConcurrency | int | `2` | how many processes should be spawned. as a reasonable rule, divide the requested memory for the pod by 512 for a rough estimate. |
 | podAnnotations | object | `{}` | annotations to append to the deployment. |
@@ -134,7 +161,6 @@ helm install my-release lrstanley/outline -f values.yaml
 | postgresql.primary.persistence.storageClass | string | `""` | storage class to configure for the persistance storage. |
 | postgresql.primary.resources.limits | object | `{"memory":"512Mi"}` | the resources limits for the postgres primary containers. |
 | postgresql.primary.resources.requests | object | `{"cpu":"100m","memory":"512Mi"}` | the resources requests for the postgres primary containers. |
-| redis | object | `{"architecture":"standalone","auth":{"enabled":false,"existingSecret":"outline-redis-credentials","existingSecretPasswordKey":"password","generate":true,"password":""},"enabled":true,"master":{"persistence":{"enabled":true,"size":"1Gi","storageClass":""},"resources":{"limits":{"memory":"256Mi"},"requests":{"cpu":"50m","memory":"256Mi"}}}}` | redis sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/redis |
 | redis.architecture | string | `"standalone"` | the redis architecture to use. can be standalone or replication. |
 | redis.auth.enabled | bool | `false` | set to true to enable redis auth. |
 | redis.auth.existingSecret | string | `"outline-redis-credentials"` | the existing secret to use for redis auth. |
@@ -147,9 +173,8 @@ helm install my-release lrstanley/outline -f values.yaml
 | redis.master.persistence.storageClass | string | `""` | storage class to configure for the persistance storage. |
 | redis.master.resources.limits | object | `{"memory":"256Mi"}` | the resources limits for the redis master containers. |
 | redis.master.resources.requests | object | `{"cpu":"50m","memory":"256Mi"}` | the resources requests for the redis master containers. |
-| resources.limits.memory | string | `"1Gi"` |  |
-| resources.requests.cpu | string | `"250m"` |  |
-| resources.requests.memory | string | `"1Gi"` |  |
+| resources.limits | object | `{"memory":"1Gi"}` | resource limits. generally don't recommend applying a limit on cpu. |
+| resources.requests | object | `{"cpu":"250m","memory":"1Gi"}` | resource requests. |
 | securityContext | object | `{}` |  |
 | service.port | int | `8081` |  |
 | service.type | string | `"ClusterIP"` |  |

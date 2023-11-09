@@ -1,0 +1,334 @@
+image:
+  # -- the image repository to pull from.
+  repository: outlinewiki/outline
+  # -- the image pull policy (generally shouldn't be changed).
+  pullPolicy: IfNotPresent
+  # -- the image tag to use. defaults to the appVersion in Chart.yaml.
+  tag: ""
+
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # -- specifies whether a service account should be created
+  create: true
+  # -- annotations to add to the service account
+  annotations: {}
+  # -- the name of the service account to use.
+  # if not set and create is true, a name is generated using the fullname template.
+  name: ""
+
+# -- annotations to append to the deployment.
+podAnnotations: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# -- additional init containers to add to the deployment.
+initContainers: []
+  # - name: wait-for-postgresql
+  #   image: busybox:latest
+  #   command: ['sh', '-c', 'do-something-here']
+
+service:
+  type: ClusterIP
+  port: 8081
+
+ingress:
+  # -- set to true to create an ingress resource.
+  enabled: true
+  # -- class name to use for the ingress resource.
+  className: ""
+  # -- additional annotations to add to the ingress resource.
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  # -- hosts to include in the ingress resource.
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+# -- have an existing secret or config-map that contains sensitive env vars? supply the name here.
+environmentFrom: []
+  # - configMapRef:
+  #     name: your-configmap
+  # - secretRef:
+  #     name: your-secret
+
+# -- environment variables to set in the deployment.
+environment: {}
+  # - name: DATABASE_URL
+  #   valueFrom:
+  #     secretKeyRef:
+  #       name: placeholder
+  #       key: url
+  # - name: OIDC_CLIENT_ID
+  #   value: "dex-client-id"
+  # - name: OIDC_CLIENT_SECRET
+  #   value: "dex-client-secret"
+  # - name: OIDC_AUTH_URI
+  #   value: "https://chart-example.local/dex/auth"
+  # - name: OIDC_TOKEN_URI
+  #   value: "https://chart-example.local/dex/token"
+  # - name: OIDC_USERINFO_URI
+  #   value: "https://chart-example.local/dex/userinfo"
+  # - name: OIDC_USERNAME_CLAIM
+  #   value: "email"
+  # - name: OIDC_DISPLAY_NAME
+  #   value: "GitHub"
+  # - name: OIDC_SCOPES
+  #   value: "openid profile email"
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 1Gi
+  limits:
+    memory: 1Gi
+
+nodeSelector: {}
+affinity: {}
+tolerations: {}
+
+# -- application settings for outline.
+outline:
+  # -- generate encryption keys. if disabled, you must pass SECRET_KEY and
+  # UTILS_SECRET environment variables.
+  generateEncryptionKeys: true
+  # -- force redirecting to https.
+  forceHttps: true
+  # -- url to use for outline. if not set, the first ingress host will be used
+  # (and https will only be configured if the tls section is filled out).
+  url: ""
+  # -- if using a Cloudfront/Cloudflare distribution or similar it can be set below.
+  # this will cause paths to javascript, stylesheets, and images to be updated to
+  # the hostname defined in CDN_URL. in your CDN configuration the origin server
+  # should be set to the same as url.
+  cdnUrl: ""
+  # -- see https://github.com/outline/outline/blob/main/docs/SERVICES.md for running
+  # a separate collaboration server, for normal operation this does not need to be set.
+  collaborationUrl: ""
+  # -- set to true to have outline check for updates by sending anonymized usage
+  # data to maintainers.
+  enableUpdates: false
+  # -- how many processes should be spawned. as a reasonable rule, divide the
+  # requested memory for the pod by 512 for a rough estimate.
+  webConcurrency: 2
+  # -- override the maximum size of document imports, could be required if you
+  # have especially large word documents with embedded imagery.
+  maximumImportSize: 5120000
+  # -- configure lowest severity level for server logs. should be one of
+  # error, warn, info, http, verbose, debug and silly.
+  logLevel: info
+  # -- debug flag. may not need if your reverse proxy already logs incoming http
+  # requests and this ends up being duplicative.
+  debug: false
+  # -- comma separated list of domains to be allowed to signin to the wiki. if not
+  # set, all domains are allowed by default when using Google OAuth to signin.
+  allowedDomains: ""
+  # -- the default interface language. see translate.getoutline.com for a list of
+  # available language codes and their rough percentage translated.
+  defaultLanguage: en_US
+
+  database:
+    # -- change the encryption/ssl mode when connecting to postgres -- maps to
+    # "PGSSLMODE".
+    encryptionMode: "disable"
+    # -- database minimum connection pool amount.
+    connectionPoolMin: ""
+    # -- database maximum connection pool amount.
+    connectionPoolMax: ""
+
+  fileStorage:
+    # -- specify the storage system to use. one of "local" or "s3". if using minio,
+    # this should be set to "s3". local is not supported in the chart at this time.
+    system: s3
+    # -- maximum allowed size for the uploaded attachment.
+    uploadMaxSize: 26214400
+    # -- if "local" is configured for "system" above, then this sets the parent
+    # directory under which all attachments/images go. make sure that the process
+    # has permissions to write files to it.
+    localRootDir: /var/lib/outline/data
+
+  rateLimiter:
+    enabled: true
+    requests: 1000
+    durationWindow: 60
+
+# -- redis sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/redis
+redis:
+  # -- set to true to have the chart create a redis instance (and configure outline to use it).
+  enabled: true
+  # -- the redis architecture to use. can be standalone or replication.
+  architecture: standalone
+  master:
+    persistence:
+      # -- set to true to enable persistence for redis.
+      enabled: true
+      # -- persistence size to use for redis.
+      size: 1Gi
+      # -- storage class to configure for the persistance storage.
+      storageClass: ""
+    resources:
+      # -- the resources requests for the redis master containers.
+      requests:
+        cpu: 50m
+        memory: 256Mi
+      # -- the resources limits for the redis master containers.
+      limits:
+        memory: 256Mi
+  auth:
+    # -- set to true to enable redis auth.
+    enabled: false
+    # -- the password to use for redis auth.
+    password: ""
+    # -- set to true to generate a set of credentials (and configure outline to use it).
+    generate: true
+    # -- the existing secret to use for redis auth.
+    existingSecret: outline-redis-credentials
+    # -- the existing secret key to use for redis auth.
+    existingSecretPasswordKey: password
+
+# postgresql sub-chart configuration. see more: https://artifacthub.io/packages/helm/bitnami/postgresql
+postgresql:
+  # -- set to true to have the chart create a postgresql instance (and configure outline to use it).
+  enabled: true
+  # -- the postgresql architecture to use. can be standalone or replication.
+  architecture: standalone
+  auth:
+    # -- assign a password to the postgres admin user. otherwise, remote access will be blocked for this user.
+    enablePostgresUser: false
+    # -- database name to use for outline.
+    database: outline
+    # -- username to use for outline.
+    username: outline
+    # -- password to use for the outline user. leave empty (with generate set to true) to generate a password automatically.
+    password: ""
+    # -- set to true to generate a set of credentials (and configure outline to use it).
+    generate: true
+    # -- the existing secret to use for postgresql auth. the postgresql chart will read "postgres-password" and "password" keys from this secret (can be changed).
+    existingSecret: outline-postgresql-credentials
+  primary:
+    persistence:
+      # -- persistence size to use for postgresql.
+      size: 2Gi
+      # -- storage class to configure for the persistance storage.
+      storageClass: ""
+    resources:
+      # -- the resources requests for the postgres primary containers.
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      # -- the resources limits for the postgres primary containers.
+      limits:
+        memory: 512Mi
+
+# -- minio sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/minio
+minio:
+  enabled: true
+  disableWebUI: true
+  forceUrlAsHttps: true
+  mode: standalone
+  defaultBuckets: "ol-data" # should not be "outline" because of https://github.com/outline/outline/issues/2068
+  # -- ingress configuration for dex. does not have to be on its own domain (can
+  # be mounted on a subpath like <outline>/dex).
+  apiIngress:
+    enabled: true
+    ingressClassName: ""
+    hostname: s3.chart-example.local
+  resources:
+    # -- the resources requests for minio.
+    requests:
+      cpu: 25m
+      memory: 512Mi
+    # -- the resources limits for minio.
+    limits:
+      memory: 512Mi
+  persistence:
+    # -- set to true to enable persistence for minio.
+    enabled: true
+    # -- persistence size to use for minio.
+    size: 10Gi
+    # -- storage class to configure for the persistance storage.
+    storageClass: ""
+  extraEnvVars:
+    - name: MINIO_UPDATE
+      value: "off"
+  auth:
+    # -- minio root username. leave empty (with generate set to true) to generate a username automatically.
+    rootUser: ""
+    # -- minio root password. leave empty (with generate set to true) to generate a password automatically.
+    rootPassword: ""
+    # -- set to true to generate a set of credentials (and configure outline to use it).
+    generate: true
+    # -- the existing secret to use for minio auth.
+    existingSecret: outline-minio-credentials
+    # force root credentials (user and password) to be reconfigured every time they change in secrets.
+    forceNewKeys: true
+
+# -- dex sub-chart configuration. dex can be used to easily configure most oauth2
+# providers via OIDC, without having to have the enterprise version of Outline. this
+# should allow pointing to things like GitHub.
+# more info: https://artifacthub.io/packages/helm/dex/dex
+dex:
+  enabled: false
+  # -- ingress configuration for dex. does not have to be on its own domain (can
+  # be mounted on a subpath like <outline>/dex).
+  ingress:
+    enabled: true
+    className: ""
+    hosts:
+      - host: chart-example.local
+        paths:
+          - path: /dex
+            pathType: ImplementationSpecific
+  resources:
+    # -- the resources requests for dex.
+    requests:
+      cpu: 25m
+      memory: 128Mi
+    # -- the resources limits for dex.
+    limits:
+      memory: 128Mi
+  # -- config is the dex config to use. can also be pulled from a secret directly.
+  config:
+    storage:
+      type: memory
+    oauth2:
+      skipApprovalScreen: true
+    issuer: http://my-issuer-url.com
+    staticClients:
+      - id: outline-client-id # openssl rand -hex 32
+        name: Outline
+        secret: outline-client-secret # openssl rand -hex 32
+        redirectURIs: # <outline>/auth/oidc.callback
+        - "https://chart-example.local/auth/oidc.callback"
+    connectors:
+      # github example -- create a Oauth App on GitHub and fill in the clientID and
+      # clientSecret below. redirectURI below should match "Authorization callback URL"
+      # in the GitHub OAuth App settings.
+      - type: github
+        id: github
+        name: GitHub
+        config:
+          # credentials can be string literals or pulled from the environment.
+          clientID: your-github-client-id
+          clientSecret: your-github-client-secret
+          redirectURI: "https://chart-example.local/dex/callback"
+          loadAllGroups: true
+          teamNameField: slug
+          useLoginAsID: false

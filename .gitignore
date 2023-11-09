@@ -9,4 +9,4 @@ dist
 *.conf
 !/.github/**
 **/.env
-**/charts/*.tgz
+*.tgz

@@ -1,4 +1,4 @@
-name: updater
+name: meta-updater
 
 on:
   schedule:

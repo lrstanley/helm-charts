@@ -35,6 +35,9 @@
 
 -----------------------------------
 
+<!-- template:begin:header -->
+<!-- template:end:header -->
+
 ## :computer: How to install this chart
 
 Add the chart repo:

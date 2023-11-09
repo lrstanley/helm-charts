@@ -24,8 +24,8 @@ jobs:
           token: ${{ secrets.USER_PAT }}
           tool: helm-docs
           chore: deps
-          version: ${{ steps.release.outputs.version }}
-          previous_version: ${{ steps.version.outputs.previous_version }}
+          version: v${{ steps.release.outputs.version }}
+          previous_version: v${{ steps.version.outputs.previous_version }}
           paths: |
             .github/workflows/*
           repo: ${{ steps.release.outputs.repo }}
@@ -41,14 +41,14 @@ jobs:
       - id: version
         run: |
           echo "previous_version=$(sed -rn 's#.*version: v?([^ ]+).*#\1#p' .github/workflows/release.yml)" >> "$GITHUB_OUTPUT"
-          sed -ri 's#/version: [^ ]+#/version: v'${{ steps.release.outputs.version }}'#g' .github/workflows/release.yml
+          sed -ri 's#version: [^ ]+#version: v'${{ steps.release.outputs.version }}'#g' .github/workflows/release.yml
       - uses: lrstanley/.github/composite/pr-version-updater@master
         with:
           token: ${{ secrets.USER_PAT }}
           tool: helm
           chore: deps
-          version: ${{ steps.release.outputs.version }}
-          previous_version: ${{ steps.version.outputs.previous_version }}
+          version: v${{ steps.release.outputs.version }}
+          previous_version: v${{ steps.version.outputs.previous_version }}
           paths: |
             .github/workflows/*
           repo: ${{ steps.release.outputs.repo }}

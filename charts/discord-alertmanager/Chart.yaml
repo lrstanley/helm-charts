@@ -2,7 +2,7 @@ apiVersion: v2
 name: discord-alertmanager
 description: AlertManager Discord Bot
 type: application
-version: 1.0.5
+version: 1.0.6
 appVersion: 1.0.0
 keywords:
   - discord

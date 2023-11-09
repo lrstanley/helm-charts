@@ -49,7 +49,7 @@ environmentFrom: []
   #     name: your-secret
 
 # -- environment variables to set in the deployment.
-environment: {}
+environment: []
   # - name: DATABASE_USERNAME
   #   valueFrom:
   #     secretKeyRef:

@@ -58,7 +58,7 @@ environmentFrom: []
   #     name: your-secret
 
 # -- environment variables to set in the deployment.
-environment: {}
+environment: []
   # - name: LOG_LEVEL
   #   value: "info"
   # - name: ALERTMANAGER_URL

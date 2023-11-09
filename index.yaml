@@ -3,6 +3,28 @@ entries:
   autodelete-discord:
   - apiVersion: v2
     appVersion: 1.2.0
+    created: "2023-11-09T21:54:25.311320068Z"
+    description: AutoDelete Discord Bot
+    digest: 95f88e21df5c4f178d1b017dc30b72800d85dedd8120ddabee59a8fa0ffe78af
+    keywords:
+    - discord
+    - bot
+    - auto-delete
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: autodelete-discord
+    sources:
+    - https://github.com/lrstanley/autodelete-docker
+    - https://github.com/riking/AutoDelete
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.6.1/autodelete-discord-0.6.1.tgz
+    version: 0.6.1
+  - apiVersion: v2
+    appVersion: 1.2.0
     created: "2023-11-09T21:32:32.796098739Z"
     description: AutoDelete Discord Bot
     digest: ab33836f9aebf0d450d9fcbdee8e20de4eb39b0e682469b28b4353a5290670ad
@@ -108,6 +130,28 @@ entries:
     - https://github.com/lrstanley/helm-charts/releases/download/autodelete-discord-0.1.1/autodelete-discord-0.1.1.tgz
     version: 0.1.1
   discord-alertmanager:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2023-11-09T21:54:25.466363822Z"
+    description: AlertManager Discord Bot
+    digest: 2447f7aa40b0ff658a7da672b220040079584e6f261728c34a5a6114bd308ffd
+    keywords:
+    - discord
+    - bot
+    - alertmanager
+    - prometheus
+    - golang
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: discord-alertmanager
+    sources:
+    - https://github.com/lrstanley/discord-alertmanager
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/discord-alertmanager-1.0.6/discord-alertmanager-1.0.6.tgz
+    version: 1.0.6
   - apiVersion: v2
     appVersion: 1.0.0
     created: "2023-11-09T21:32:32.941220394Z"
@@ -221,6 +265,33 @@ entries:
   outline:
   - apiVersion: v1
     appVersion: 0.72.2
+    created: "2023-11-09T21:54:25.651821177Z"
+    description: The outline helm chart to deploy outline in kubernetes clusters.
+    digest: 8b6a8344478fd33c58aa13752673f39e82e8fb51a6a1a34ea4a6c5c3821ac940
+    home: https://getoutline.com
+    keywords:
+    - outline
+    - wiki
+    - helm
+    - chart
+    - kubernetes
+    - s3
+    - minio
+    - postgresql
+    - mongodb
+    - knowledge
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: outline
+    sources:
+    - https://github.com/lrstanley/helm-charts
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/outline-1.0.2/outline-1.0.2.tgz
+    version: 1.0.2
+  - apiVersion: v1
+    appVersion: 0.72.2
     created: "2023-11-09T21:32:33.110012524Z"
     description: The outline helm chart to deploy outline in kubernetes clusters.
     digest: 967143064f9b2adc1f682b360e6f21633e55009fa1c463c3a5fc9989ab8852df
@@ -274,6 +345,27 @@ entries:
     - https://github.com/lrstanley/helm-charts/releases/download/outline-1.0.0/outline-1.0.0.tgz
     version: 1.0.0
   pgweb:
+  - apiVersion: v2
+    appVersion: 0.14.2
+    created: "2023-11-09T21:54:25.799426732Z"
+    description: A Helm chart for pgweb
+    digest: db62d3f090a2466354ab7f1008f1c31a491eb843504ec1d21f0234aea329bc8f
+    keywords:
+    - postgres
+    - database
+    - http-server
+    - ui
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: pgweb
+    sources:
+    - https://github.com/sosedoff/pgweb
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/pgweb-1.0.7/pgweb-1.0.7.tgz
+    version: 1.0.7
   - apiVersion: v2
     appVersion: 0.14.2
     created: "2023-11-09T21:49:33.784406211Z"
@@ -372,4 +464,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-09T21:49:33.784458426Z"
+generated: "2023-11-09T21:54:25.799618635Z"

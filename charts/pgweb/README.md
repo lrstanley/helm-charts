@@ -81,9 +81,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | ingress.annotations | object | `{}` | additional annotations to add to the ingress resource. |
 | ingress.className | string | `""` | class name to use for the ingress resource. |
 | ingress.enabled | bool | `false` | set to true to create an ingress resource. |
-| ingress.hosts | list | `[{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}]` | hosts to include in the ingress resource. |
-| ingress.hosts[0] | object | `{"host":"chart-example.local","paths":[{"path":"/","pathType":"ImplementationSpecific"}]}` | host name to use. |
-| ingress.hosts[0].paths[0] | object | `{"path":"/","pathType":"ImplementationSpecific"}` | path to use, generally shouldn't be changed in most cases. |
+| ingress.hosts | list | `[]` | hosts to include in the ingress resource. |
 | ingress.tls | list | `[]` |  |
 | initContainers | list | `[]` | additional init containers to add to the deployment. |
 | nameOverride | string | `""` |  |

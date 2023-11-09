@@ -20,7 +20,7 @@ jobs:
   helm-version-updater:
     runs-on: ubuntu-latest
     needs: [get-charts]
-    if: ${{ fromJSON(needs.get-charts.outputs.changeset).changeset != null }}
+    if: ${{ fromJSON(needs.get-charts.outputs.changeset).changes != null }}
     strategy:
       fail-fast: false
       matrix:

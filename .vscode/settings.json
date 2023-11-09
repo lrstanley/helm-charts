@@ -8,6 +8,5 @@
     },
     "[yaml]": {
         "editor.formatOnSave": false
-    },
-    "deno.enable": true
+    }
 }

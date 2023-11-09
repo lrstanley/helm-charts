@@ -14,7 +14,25 @@ jobs:
         run: |
           set -e
 
-          docker run --rm -v "$PWD:/helm-docs" jnorwood/helm-docs:v1.11.3 --template-files /helm-docs/.github/HELM_README.md.gotmpl
+          for CHART in $(find charts/ -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;);do
+            cp -av .github/HELM_README.md.gotmpl /tmp/HELM_README.md.gotmpl
+
+            if [ -d "charts/${CHART}/HEADER.md" ]; then
+              cat .github/HELM_README.md.gotmpl | awk \
+                -v CONTENT="$(cat charts/${CHART}/HEADER.md)" \
+                -v FIELD="header" \
+                -v RS="template:begin:${FIELD} .* template:end:${FIELD}" \
+                -v ORS= \
+                '1;NR==1{print "template:begin:" FIELD " -->\n" CONTENT "\n<!-- template:end:" FIELD}' > /tmp/HELM_README.md.gotmpl
+            fi
+
+            docker run --rm \
+              -v "$PWD:/helm-docs" \
+              -v "/tmp/HELM_README.md.gotmpl:/tmp/HELM_README.md.gotmpl" \
+              jnorwood/helm-docs:v1.11.3 \
+              --chart-to-generate "$CHART" \
+              --template-files /tmp/HELM_README.md.gotmpl
+          done
 
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"

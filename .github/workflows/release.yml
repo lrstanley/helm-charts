@@ -18,6 +18,16 @@ jobs:
       - uses: azure/setup-helm@5119fcb9089d432beecbf79bb2c7915207344b78
         with:
           version: v3.13.1
+      - name: helm-dependencies
+        run: |
+          while read -r chart;do
+            cd "$chart" || exit 1
+
+            while read -r name _ repo _;do
+              [ -z "$repo" ] && continue
+              (set -x; helm repo add "$name" "$repo")
+            done <<<"$(helm dependency list 2>/dev/null | grep https)"
+          done <<<"$(find "$PWD/charts/" -mindepth 1 -maxdepth 1 -type d)"
       - uses: helm/chart-releaser-action@a917fd15b20e8b64b94d9158ad54cd6345335584
         continue-on-error: false
         env:

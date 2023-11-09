@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/discord-alertmanager/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.4-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.5-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/discord-alertmanager/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-1.0.0-blue?style=flat-square">
@@ -75,17 +75,17 @@ helm install my-release lrstanley/discord-alertmanager -f values.yaml
 | environment | object | `{}` | environment variables to set in the deployment. |
 | environmentFrom | list | `[]` | have an existing secret or config-map that contains sensitive env vars? supply the name here. |
 | fullnameOverride | string | `""` |  |
-| image.pullPolicy | string | `"IfNotPresent"` |  |
-| image.repository | string | `"ghcr.io/lrstanley/discord-alertmanager"` |  |
+| image.pullPolicy | string | `"IfNotPresent"` | the image pull policy (generally shouldn't be changed). |
+| image.repository | string | `"ghcr.io/lrstanley/discord-alertmanager"` | the image repository to pull from. |
 | image.tag | string | `""` | image tag to use. defaults to the chart's appVersion. |
+| initContainers | list | `[]` | additional init containers to add to the deployment. |
 | nameOverride | string | `""` |  |
 | nodeSelector | object | `{}` |  |
-| podAnnotations | object | `{}` |  |
+| podAnnotations | object | `{}` | annotations to append to the deployment. |
 | podSecurityContext | object | `{}` |  |
 | replicaCount | int | `1` | number of replicas; this should generally always be 1. |
-| resources.limits.memory | string | `"50Mi"` |  |
-| resources.requests.cpu | string | `"10m"` |  |
-| resources.requests.memory | string | `"20Mi"` |  |
+| resources.limits | object | `{"memory":"50Mi"}` | resource limits. generally don't recommend applying a limit on cpu. |
+| resources.requests | object | `{"cpu":"10m","memory":"20Mi"}` | resource requests. |
 | securityContext | object | `{}` |  |
 | serviceAccount.annotations | object | `{}` | annotations to add to the service account. |
 | serviceAccount.create | bool | `true` | specifies whether a service account should be created. |

@@ -20,10 +20,9 @@ jobs:
             if [ -d "charts/${CHART}/HEADER.md" ]; then
               cat .github/HELM_README.md.gotmpl | awk \
                 -v CONTENT="$(cat charts/${CHART}/HEADER.md)" \
-                -v FIELD="header" \
-                -v RS="template:begin:${FIELD} .* template:end:${FIELD}" \
+                -v RS="template:begin:header .* template:end:header" \
                 -v ORS= \
-                '1;NR==1{print "template:begin:" FIELD " -->\n" CONTENT "\n<!-- template:end:" FIELD}' > /tmp/HELM_README.md.gotmpl
+                '1;NR==1{print "template:begin:header -->\n" CONTENT "\n<!-- template:end:header"}' > /tmp/HELM_README.md.gotmpl
             fi
 
             docker run --rm \

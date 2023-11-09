@@ -17,7 +17,7 @@ jobs:
           for CHART in $(find charts/ -mindepth 1 -maxdepth 1 -type d -exec basename "{}" \;);do
             cp -av .github/HELM_README.md.gotmpl /tmp/HELM_README.md.gotmpl
 
-            if [ -d "charts/${CHART}/HEADER.md" ]; then
+            if [ -f "charts/${CHART}/HEADER.md" ]; then
               cat .github/HELM_README.md.gotmpl | awk \
                 -v CONTENT="$(cat charts/${CHART}/HEADER.md)" \
                 -v RS="template:begin:header .* template:end:header" \

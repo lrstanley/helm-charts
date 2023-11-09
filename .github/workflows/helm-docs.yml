@@ -30,7 +30,7 @@ jobs:
               -v "$PWD:/helm-docs" \
               -v "/tmp/HELM_README.md.gotmpl:/tmp/HELM_README.md.gotmpl" \
               jnorwood/helm-docs:v1.11.3 \
-              --chart-to-generate "$CHART" \
+              --chart-to-generate "charts/$CHART" \
               --template-files /tmp/HELM_README.md.gotmpl
           done
 

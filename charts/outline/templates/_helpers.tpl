@@ -160,13 +160,11 @@ Environment variables passed to the Outline container and related containers.
   value: {{ .Values.service.port | quote }}
 {{- if .Values.redis.enabled }}
 {{- if and .Values.redis.auth.enabled .Values.redis.auth.generate }}
-- name: REDIS_PASSWORD
+- name: REDIS_URL
   valueFrom:
     secretKeyRef:
       name: {{ .Values.redis.auth.existingSecret | quote }}
-      key: {{ .Values.redis.auth.existingSecretPasswordKey | quote }}
-- name: REDIS_URL
-  value: "redis://$(REDIS_PASSWORD)@{{ .Release.Name }}-redis-master:{{ .Values.redis.master.service.ports.redis }}"
+      key: "ioredis"
 {{- else if and .Values.redis.auth.enabled .Values.redis.auth.password }}
 - name: REDIS_URL
   value: "redis://{{ .Values.redis.auth.password }}@{{ .Release.Name }}-redis-master:{{ .Values.redis.master.service.ports.redis }}"
@@ -189,7 +187,7 @@ Environment variables passed to the Outline container and related containers.
   value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
 {{- end }}
 {{- end }}
-{{ if .Values.minio.enabled }}
+{{- if .Values.minio.enabled }}
 - name: AWS_ACCESS_KEY_ID
   valueFrom:
     secretKeyRef:

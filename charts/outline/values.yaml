@@ -216,8 +216,9 @@ redis:
         memory: 256Mi
   auth:
     # -- set to true to enable redis auth.
-    enabled: false
-    # -- the password to use for redis auth.
+    enabled: true
+    # -- the password to use for redis auth. leave empty (with generate set to true)
+    # to generate a password automatically.
     password: ""
     # -- set to true to generate a set of credentials (and configure outline to use it).
     generate: true

@@ -45,7 +45,6 @@ spec:
                   number: {{ $svcPort }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
-              {{- end }}
     {{- else }}
     - host: {{ .host | quote }}
       http:
@@ -62,7 +61,6 @@ spec:
                   number: {{ $svcPort }}
               serviceName: {{ $fullName }}
               servicePort: {{ $svcPort }}
-              {{- end }}
           {{- end }}
     {{- end }}
     {{- end }}

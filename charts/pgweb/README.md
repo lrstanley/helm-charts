@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.7-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.8-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.14.2-blue?style=flat-square">
@@ -84,7 +84,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 | ingress.annotations | object | `{}` | additional annotations to add to the ingress resource. |
 | ingress.className | string | `""` | class name to use for the ingress resource. |
 | ingress.enabled | bool | `false` | set to true to create an ingress resource. |
-| ingress.hosts | list | `[]` | hosts to include in the ingress resource. |
+| ingress.hosts | list | `[]` | hosts to include in the ingress resource. can be specified as string or object for more complex definitions. |
 | ingress.tls | list | `[]` |  |
 | initContainers | list | `[]` | additional init containers to add to the deployment. |
 | nameOverride | string | `""` |  |

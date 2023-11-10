@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.2-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.3-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.72.2-blue?style=flat-square">
@@ -127,7 +127,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | ingress.annotations | object | `{}` | additional annotations to add to the ingress resource. |
 | ingress.className | string | `""` | class name to use for the ingress resource. |
 | ingress.enabled | bool | `true` | set to true to create an ingress resource. |
-| ingress.hosts | list | `[]` | hosts to include in the ingress resource. |
+| ingress.hosts | list | `[]` | hosts to include in the ingress resource. can be specified as string or object for more complex definitions. |
 | ingress.tls | list | `[]` |  |
 | initContainers | list | `[]` | additional init containers to add to the deployment. |
 | minio.apiIngress | object | `{"enabled":true,"hostname":"s3.chart-example.local","ingressClassName":""}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |

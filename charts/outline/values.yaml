@@ -105,6 +105,24 @@ resources:
   limits:
     memory: 1Gi
 
+scheduler:
+  # -- set to true to enable the cronjob to invoke Outlines scheduler.
+  enabled: true
+  # -- set to true to use the ingress URL, rather than the service URL, for the
+  # scheduler to invoke.
+  useIngress: true
+  # -- schedule to use for the cronjob. defaults to every day at 12:30 (cluster time). see
+  # https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax
+  # for more info.
+  schedule: "30 12 * * *"
+  # -- concurrency policy for the cron. see the following for more info:
+  # https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#concurrency-policy
+  concurrencyPolicy: Forbid
+  # -- number of successful job completions to retain.
+  successfulJobsHistoryLimit: 1
+  # -- number of failed job completions to retain.
+  failedJobsHistoryLimit: 1
+
 nodeSelector: {}
 affinity: {}
 tolerations: {}

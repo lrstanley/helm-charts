@@ -1,0 +1,51 @@
+{{- if .Values.scheduler.enabled }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ printf "%s-cron-daily" (include "outline.fullname" .) | trunc 63 | trimSuffix "-" | quote }}
+  labels:
+    {{- include "outline.labels" . | nindent 4 }}
+spec:
+  schedule: {{ .Values.scheduler.schedule | quote }}
+  concurrencyPolicy: {{ .Values.scheduler.concurrencyPolicy | quote }}
+  suspend: false
+  successfulJobsHistoryLimit: {{ .Values.scheduler.successfulJobsHistoryLimit }}
+  failedJobsHistoryLimit: {{ .Values.scheduler.failedJobsHistoryLimit }}
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: invoke-scheduler
+              image: busybox:latest
+              imagePullPolicy: Always
+              command:
+                - "sh"
+                - "-c"
+                - |
+                  STATUS_CODE=$(
+                    wget -S \
+                      -O /dev/null \
+                      --no-check-certificate \
+                      {{- if .Values.scheduler.useIngress }}
+                      {{ printf "%s/api/cron.daily?token=${UTILS_SECRET}" (include "outline.url" . | trimSuffix "/") | quote }} 2>&1 \
+                      {{- else }}
+                      {{ printf "http://%s:%0.f/api/cron.daily?token=${UTILS_SECRET}" (include "outline.fullname" .) .Values.service.port | quote }} 2>&1 \
+                      {{- end }}
+                    | sed -rn 's:.*HTTP/.* ([0-9]+) .*:\1:p' | tail -1
+                  )
+
+                  echo "status code: ${STATUS_CODE}"
+
+                  if [ "$STATUS_CODE" != "200" ]; then
+                    echo "failed to invoke cron.daily"
+                    exit 1
+                  fi
+              {{- with .Values.environmentFrom }}
+              envFrom:
+                {{- toYaml . | nindent 12 }}
+              {{- end }}
+              env:
+                {{- include "outline.envs" . | nindent 16 }}
+          restartPolicy: OnFailure
+{{- end }}

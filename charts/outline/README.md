@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.6-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.1.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.72.2-blue?style=flat-square">
@@ -186,11 +186,11 @@ helm install my-release lrstanley/outline -f values.yaml
 | postgresql.primary.resources.limits | object | `{"memory":"512Mi"}` | the resources limits for the postgres primary containers. |
 | postgresql.primary.resources.requests | object | `{"cpu":"100m","memory":"512Mi"}` | the resources requests for the postgres primary containers. |
 | redis.architecture | string | `"standalone"` | the redis architecture to use. can be standalone or replication. |
-| redis.auth.enabled | bool | `false` | set to true to enable redis auth. |
+| redis.auth.enabled | bool | `true` | set to true to enable redis auth. |
 | redis.auth.existingSecret | string | `"outline-redis-credentials"` | the existing secret to use for redis auth. |
 | redis.auth.existingSecretPasswordKey | string | `"password"` | the existing secret key to use for redis auth. |
 | redis.auth.generate | bool | `true` | set to true to generate a set of credentials (and configure outline to use it). |
-| redis.auth.password | string | `""` | the password to use for redis auth. |
+| redis.auth.password | string | `""` | the password to use for redis auth. leave empty (with generate set to true) to generate a password automatically. |
 | redis.enabled | bool | `true` | set to true to have the chart create a redis instance (and configure outline to use it). |
 | redis.master.persistence.enabled | bool | `true` | set to true to enable persistence for redis. |
 | redis.master.persistence.size | string | `"1Gi"` | persistence size to use for redis. |

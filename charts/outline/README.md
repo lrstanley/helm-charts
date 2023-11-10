@@ -36,6 +36,9 @@
 -----------------------------------
 
 <!-- template:begin:header -->
+This is a test.
+
+-------------------------------
 <!-- template:end:header -->
 
 ## :computer: How to install this chart

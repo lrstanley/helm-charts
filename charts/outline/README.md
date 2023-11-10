@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.5-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.6-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.72.2-blue?style=flat-square">
@@ -199,6 +199,12 @@ helm install my-release lrstanley/outline -f values.yaml
 | redis.master.resources.requests | object | `{"cpu":"50m","memory":"256Mi"}` | the resources requests for the redis master containers. |
 | resources.limits | object | `{"memory":"1Gi"}` | resource limits. generally don't recommend applying a limit on cpu. |
 | resources.requests | object | `{"cpu":"250m","memory":"1Gi"}` | resource requests. |
+| scheduler.concurrencyPolicy | string | `"Forbid"` | concurrency policy for the cron. see the following for more info: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#concurrency-policy |
+| scheduler.enabled | bool | `true` | set to true to enable the cronjob to invoke Outlines scheduler. |
+| scheduler.failedJobsHistoryLimit | int | `1` | number of failed job completions to retain. |
+| scheduler.schedule | string | `"30 12 * * *"` | schedule to use for the cronjob. defaults to every day at 12:30 (cluster time). see https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#schedule-syntax for more info. |
+| scheduler.successfulJobsHistoryLimit | int | `1` | number of successful job completions to retain. |
+| scheduler.useIngress | bool | `true` | set to true to use the ingress URL, rather than the service URL, for the scheduler to invoke. |
 | securityContext | object | `{}` |  |
 | service.port | int | `8081` |  |
 | service.type | string | `"ClusterIP"` |  |

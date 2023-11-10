@@ -265,6 +265,33 @@ entries:
   outline:
   - apiVersion: v1
     appVersion: 0.72.2
+    created: "2023-11-10T04:09:47.317780772Z"
+    description: The outline helm chart to deploy outline in kubernetes clusters.
+    digest: d5c8189834c6f70272a53d25131652f4d0fbe3c4a8168d577c654facf982bbd7
+    home: https://getoutline.com
+    keywords:
+    - outline
+    - wiki
+    - helm
+    - chart
+    - kubernetes
+    - s3
+    - minio
+    - postgresql
+    - mongodb
+    - knowledge
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: outline
+    sources:
+    - https://github.com/lrstanley/helm-charts
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/outline-1.1.0/outline-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v1
+    appVersion: 0.72.2
     created: "2023-11-10T02:37:34.930377847Z"
     description: The outline helm chart to deploy outline in kubernetes clusters.
     digest: 2a3ea0a48b39fd10a412e6084fe70aedc5b9c70915f7ee9d59cfb2df6871d0e9
@@ -635,4 +662,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-10T02:37:35.086295871Z"
+generated: "2023-11-10T04:09:47.317932875Z"

@@ -51,8 +51,11 @@ ingress:
   annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
-  # -- hosts to include in the ingress resource.
+  # -- hosts to include in the ingress resource. can be specified as string or
+  # object for more complex definitions.
   hosts: []
+    # ["chart-example.local"]
+    # or
     # - host: chart-example.local
     #   paths:
     #     - path: /

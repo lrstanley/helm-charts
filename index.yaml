@@ -265,6 +265,33 @@ entries:
   outline:
   - apiVersion: v1
     appVersion: 0.72.2
+    created: "2023-11-10T01:39:02.572391203Z"
+    description: The outline helm chart to deploy outline in kubernetes clusters.
+    digest: de4177fa14837062617f3d461ade7e97c7a779a12ab89fc2aee2ce0dcf54891a
+    home: https://getoutline.com
+    keywords:
+    - outline
+    - wiki
+    - helm
+    - chart
+    - kubernetes
+    - s3
+    - minio
+    - postgresql
+    - mongodb
+    - knowledge
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: outline
+    sources:
+    - https://github.com/lrstanley/helm-charts
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/outline-1.0.4/outline-1.0.4.tgz
+    version: 1.0.4
+  - apiVersion: v1
+    appVersion: 0.72.2
     created: "2023-11-10T00:38:28.993892787Z"
     description: The outline helm chart to deploy outline in kubernetes clusters.
     digest: 4b750420175b93fdf8558d27713add3acb4965d743ecff95cff8150ade3ac042
@@ -372,6 +399,27 @@ entries:
     - https://github.com/lrstanley/helm-charts/releases/download/outline-1.0.0/outline-1.0.0.tgz
     version: 1.0.0
   pgweb:
+  - apiVersion: v2
+    appVersion: 0.14.2
+    created: "2023-11-10T01:39:02.735476512Z"
+    description: A Helm chart for pgweb
+    digest: 2938f69637d607bd17029cd89c51327d4eacb5c225438b5a883913cf73217f0f
+    keywords:
+    - postgres
+    - database
+    - http-server
+    - ui
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: pgweb
+    sources:
+    - https://github.com/sosedoff/pgweb
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/pgweb-1.0.9/pgweb-1.0.9.tgz
+    version: 1.0.9
   - apiVersion: v2
     appVersion: 0.14.2
     created: "2023-11-10T00:38:29.117679215Z"
@@ -512,4 +560,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-10T00:38:29.117828875Z"
+generated: "2023-11-10T01:39:02.735569065Z"

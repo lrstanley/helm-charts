@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.2.0-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.3.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.73.1-blue?style=flat-square">
@@ -98,6 +98,43 @@ helm install my-release lrstanley/outline -f values.yaml
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | affinity | object | `{}` |  |
+| cnpg.annotations | object | `{}` | annotations to add to all resources for the cluster. |
+| cnpg.auth.adminPassword | string | `""` | password to use for the postgres admin user. leave empty (with generatePostgres set to true) to generate a password automatically. |
+| cnpg.auth.existingAdminSecret | string | `"outline-postgres-admin-credentials"` | secret containing the password to use for the postgres admin user. |
+| cnpg.auth.existingSecret | string | `"outline-postgres-credentials"` | the existing secret to use for postgresql auth. the postgresql chart will read "postgres-password" and "password" keys from this secret (can be changed). |
+| cnpg.auth.generate | bool | `true` | set to true to generate a set of credentials (and configure outline to use it). |
+| cnpg.auth.generateAdmin | bool | `true` |  |
+| cnpg.auth.password | string | `""` | password to use for the outline user. leave empty (with generate set to true) to generate a password automatically. |
+| cnpg.auth.username | string | `"outline"` | username to use for outline. |
+| cnpg.backup.accessKeyId.existingSecret | string | `""` | required: name of the secret containing the access key id. |
+| cnpg.backup.accessKeyId.key | string | `"ACCESS_KEY_ID"` | key in the secret containing the access key id. |
+| cnpg.backup.bucket | string | `""` | bucket to store the backups in (must existing if using the built-in minio chart). |
+| cnpg.backup.bucketPath | string | `""` | path in bucket to store backups. defaults to "postgres/<release-name>" |
+| cnpg.backup.compression | string | `"gzip"` | backup compression to use. |
+| cnpg.backup.enabled | bool | `false` | enable backups for the postgres instance. |
+| cnpg.backup.endpoint | string | `""` | endpoint to use for the backup object storage. this is not required when using AWS, but for anything else (e.g. minio), it'd be something like "https://minio.example.com". if you want to use the built-in minio chart, you can use "http://<release-name>-minio:9000". |
+| cnpg.backup.maxParallel | int | `8` | parallel wal restore concurrency amount. adjust for size of cluster. |
+| cnpg.backup.ownerReference | string | `"self"` |  |
+| cnpg.backup.retentionPolicy | string | `"30d"` | retention policy of the scheduled backups. |
+| cnpg.backup.schedule | string | `"0 0 2 * * *"` | schedule to use for the cronjob. defaults to every day at 2:00 (cluster time). note that cnpg supports a seconds field. more info: https://cloudnative-pg.io/documentation/1.21/backup/#scheduled-backups |
+| cnpg.backup.secretAccessKey.existingSecret | string | `""` | required: name of the secret containing the secret access key. |
+| cnpg.backup.secretAccessKey.key | string | `"ACCESS_SECRET_KEY"` | key in the secret containing the secret access key. |
+| cnpg.database | string | `"outline"` | database name to use for outline. |
+| cnpg.enabled | bool | `false` | enable cnpg postgres cluster. |
+| cnpg.imageName | string | `"ghcr.io/cloudnative-pg/postgresql:14"` | image to use for the postgres instances. |
+| cnpg.imagePullPolicy | string | `"Always"` | the image pull policy (generally shouldn't be changed). |
+| cnpg.instances | int | `1` | number of postgres instances to run. |
+| cnpg.monitoring | object | `{}` | monitoring config (to enable PodMonitor for example). |
+| cnpg.name | string | `"postgres"` | name of the cluster. must be unique. if restoring from a backup, the restored cluster must have a different name from the original cluster. |
+| cnpg.persistence.size | string | `"2Gi"` | persistence size to use for postgresql. |
+| cnpg.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
+| cnpg.postgresql | object | `{}` | postgresql config. maps directly to the Cluster "postgresql" field. |
+| cnpg.recovery.enabled | bool | `false` | enable backup recovery. there are a few prerequisites for this to work:   1. the existing cnpg cluster must be removed (would recommend NOT deleting the      ScheduledBackup resource).   2. cnpg.name must be updated to a new name.   3. set method and either pitr or objectName (depending on which method you want      to use).   4. enable recovery, and run helm upgrade. cnpg should restore from the backup.   5. disable recovery, and run helm upgrade. cnpg should continue to run normally. |
+| cnpg.recovery.method | string | `"pitr"` | recovery method to use. one of "pitr" (point in time recovery) or "object" (backup object). see also the "pitr" and "objectName" fields below. |
+| cnpg.recovery.objectName | string | `""` | name of the backup object to use. example: outline-postgres-20231111011600. |
+| cnpg.recovery.pitr | string | `""` | point in time to use. example: 2023-08-11 11:14:21.00000+02, will use closest backup before this time. |
+| cnpg.resources.limits | object | `{"memory":"512Mi"}` | the resources limits for the postgres primary containers. |
+| cnpg.resources.requests | object | `{"cpu":"50m","memory":"512Mi"}` | the resources requests for the postgres primary containers. |
 | dex.config.connectors[0].config.clientID | string | `"your-github-client-id"` |  |
 | dex.config.connectors[0].config.clientSecret | string | `"your-github-client-secret"` |  |
 | dex.config.connectors[0].config.loadAllGroups | bool | `true` |  |
@@ -130,7 +167,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | ingress.hosts | list | `[]` | hosts to include in the ingress resource. can be specified as string or object for more complex definitions. |
 | ingress.tls | list | `[]` |  |
 | initContainers | list | `[]` | additional init containers to add to the deployment. |
-| minio.apiIngress | object | `{"enabled":true,"hostname":"s3.chart-example.local","ingressClassName":""}` | ingress configuration for dex. does not have to be on its own domain (can be mounted on a subpath like <outline>/dex). |
+| minio.apiIngress | object | `{"enabled":true,"hostname":"s3.chart-example.local","ingressClassName":""}` | ingress configuration for minio. |
 | minio.auth.existingSecret | string | `"outline-minio-credentials"` | the existing secret to use for minio auth. |
 | minio.auth.forceNewKeys | bool | `true` |  |
 | minio.auth.generate | bool | `true` | set to true to generate a set of credentials (and configure outline to use it). |
@@ -145,7 +182,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | minio.mode | string | `"standalone"` |  |
 | minio.persistence.enabled | bool | `true` | set to true to enable persistence for minio. |
 | minio.persistence.size | string | `"10Gi"` | persistence size to use for minio. |
-| minio.persistence.storageClass | string | `""` | storage class to configure for the persistance storage. |
+| minio.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
 | minio.resources.limits | object | `{"memory":"512Mi"}` | the resources limits for minio. |
 | minio.resources.requests | object | `{"cpu":"25m","memory":"512Mi"}` | the resources requests for minio. |
 | nameOverride | string | `""` |  |
@@ -182,7 +219,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | postgresql.auth.username | string | `"outline"` | username to use for outline. |
 | postgresql.enabled | bool | `true` | set to true to have the chart create a postgresql instance (and configure outline to use it). |
 | postgresql.primary.persistence.size | string | `"2Gi"` | persistence size to use for postgresql. |
-| postgresql.primary.persistence.storageClass | string | `""` | storage class to configure for the persistance storage. |
+| postgresql.primary.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
 | postgresql.primary.resources.limits | object | `{"memory":"512Mi"}` | the resources limits for the postgres primary containers. |
 | postgresql.primary.resources.requests | object | `{"cpu":"100m","memory":"512Mi"}` | the resources requests for the postgres primary containers. |
 | redis.architecture | string | `"standalone"` | the redis architecture to use. can be standalone or replication. |
@@ -194,7 +231,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | redis.enabled | bool | `true` | set to true to have the chart create a redis instance (and configure outline to use it). |
 | redis.master.persistence.enabled | bool | `true` | set to true to enable persistence for redis. |
 | redis.master.persistence.size | string | `"1Gi"` | persistence size to use for redis. |
-| redis.master.persistence.storageClass | string | `""` | storage class to configure for the persistance storage. |
+| redis.master.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
 | redis.master.resources.limits | object | `{"memory":"256Mi"}` | the resources limits for the redis master containers. |
 | redis.master.resources.requests | object | `{"cpu":"50m","memory":"256Mi"}` | the resources requests for the redis master containers. |
 | resources.limits | object | `{"memory":"1Gi"}` | resource limits. generally don't recommend applying a limit on cpu. |

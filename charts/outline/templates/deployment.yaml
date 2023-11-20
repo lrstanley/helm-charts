@@ -32,33 +32,39 @@ spec:
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       initContainers:
-        {{- if .Values.postgresql.enabled }}
-        - name: wait-for-postgresql
+        - name: wait-for-services
           image: busybox:latest
           imagePullPolicy: Always
           command:
             - "sh"
             - "-c"
-            - "until nc -z {{ .Release.Name }}-postgresql {{ .Values.postgresql.primary.service.ports.postgresql }}; do echo 'waiting for postgresql'; sleep 2; done;"
-        {{- end }}
-        {{- if .Values.redis.enabled }}
-        - name: wait-for-redis
-          image: busybox:latest
-          imagePullPolicy: Always
-          command:
-            - "sh"
-            - "-c"
-            - "until nc -z {{ .Release.Name }}-redis-master {{ .Values.redis.master.service.ports.redis }}; do echo 'waiting for redis'; sleep 2; done;"
-        {{- end }}
-        {{- if .Values.minio.enabled }}
-        - name: wait-for-minio
-          image: busybox:latest
-          imagePullPolicy: Always
-          command:
-            - "sh"
-            - "-c"
-            - "until nc -z {{ .Values.minio.apiIngress.hostname }} {{ if or .Values.minio.forceUrlAsHttps .Values.minio.apiIngress.tls }}443{{ else }}80{{ end }}; do echo 'waiting for minio'; sleep 2; done;"
-        {{- end }}
+            - |
+              {{- if .Values.postgresql.enabled }}
+              until nc -w 5 -z {{ .Release.Name }}-postgresql {{ .Values.postgresql.primary.service.ports.postgresql }};do
+                echo "waiting for postgresql"
+                sleep 2
+              done
+              {{- end }}
+              {{- if .Values.cnpg.enabled }}
+              until nc -w 5 -z {{ include "outline.cnpgName" . }}-rw 5432;do
+                echo "waiting for cnpg postgresql"
+                sleep 2
+              done
+              {{- end }}
+              {{- if .Values.redis.enabled }}
+              until nc -w 5 -z {{ .Release.Name }}-redis-master {{ .Values.redis.master.service.ports.redis }};do
+                echo "waiting for redis"
+                sleep 2
+              done
+              {{- end }}
+              {{- if .Values.minio.enabled }}
+              until nc -w 5 -z {{ .Values.minio.apiIngress.hostname }} {{ if or .Values.minio.forceUrlAsHttps .Values.minio.apiIngress.tls }}443{{ else }}80{{ end }};do
+                echo "waiting for minio"
+                sleep 2
+              done
+              {{- end }}
+
+              exit 0
         {{- with .Values.initContainers }}
         {{- toYaml . | nindent 8 }}
         {{- end }}

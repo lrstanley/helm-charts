@@ -204,7 +204,7 @@ redis:
       enabled: true
       # -- persistence size to use for redis.
       size: 1Gi
-      # -- storage class to configure for the persistance storage.
+      # -- storage class to configure for the persistence storage.
       storageClass: ""
     resources:
       # -- the resources requests for the redis master containers.
@@ -250,7 +250,7 @@ postgresql:
     persistence:
       # -- persistence size to use for postgresql.
       size: 2Gi
-      # -- storage class to configure for the persistance storage.
+      # -- storage class to configure for the persistence storage.
       storageClass: ""
     resources:
       # -- the resources requests for the postgres primary containers.
@@ -261,6 +261,105 @@ postgresql:
       limits:
         memory: 512Mi
 
+# cnpg postgres cluster configuration.
+cnpg:
+  # -- enable cnpg postgres cluster.
+  enabled: false
+  # -- name of the cluster. must be unique. if restoring from a backup, the restored
+  # cluster must have a different name from the original cluster.
+  name: "postgres"
+  # -- annotations to add to all resources for the cluster.
+  annotations: {}
+  # -- number of postgres instances to run.
+  instances: 1
+  # -- image to use for the postgres instances.
+  imageName: ghcr.io/cloudnative-pg/postgresql:14
+  # -- the image pull policy (generally shouldn't be changed).
+  imagePullPolicy: Always
+  persistence:
+    # -- persistence size to use for postgresql.
+    size: 2Gi
+    # -- storage class to configure for the persistence storage.
+    storageClass: ""
+  resources:
+    # -- the resources requests for the postgres primary containers.
+    requests:
+      cpu: 50m
+      memory: 512Mi
+    # -- the resources limits for the postgres primary containers.
+    limits:
+      memory: 512Mi
+  # -- database name to use for outline.
+  database: outline
+  auth:
+    # -- username to use for outline.
+    username: outline
+    # -- password to use for the outline user. leave empty (with generate set to true) to generate a password automatically.
+    password: ""
+    # -- set to true to generate a set of credentials (and configure outline to use it).
+    generate: true
+    # -- the existing secret to use for postgresql auth. the postgresql chart will read "postgres-password" and "password" keys from this secret (can be changed).
+    existingSecret: outline-postgres-credentials
+    # -- password to use for the postgres admin user. leave empty (with generatePostgres
+    # set to true) to generate a password automatically.
+    adminPassword: ""
+    generateAdmin: true
+    # -- secret containing the password to use for the postgres admin user.
+    existingAdminSecret: outline-postgres-admin-credentials
+  recovery:
+    # -- enable backup recovery. there are a few prerequisites for this to work:
+    #   1. the existing cnpg cluster must be removed (would recommend NOT deleting the
+    #      ScheduledBackup resource).
+    #   2. cnpg.name must be updated to a new name.
+    #   3. set method and either pitr or objectName (depending on which method you want
+    #      to use).
+    #   4. enable recovery, and run helm upgrade. cnpg should restore from the backup.
+    #   5. disable recovery, and run helm upgrade. cnpg should continue to run normally.
+    enabled: false
+    # -- recovery method to use. one of "pitr" (point in time recovery) or "object"
+    # (backup object). see also the "pitr" and "objectName" fields below.
+    method: pitr
+    # -- point in time to use. example: 2023-08-11 11:14:21.00000+02, will use
+    # closest backup before this time.
+    pitr: ""
+    # -- name of the backup object to use. example: outline-postgres-20231111011600.
+    objectName: ""
+  backup:
+    # -- enable backups for the postgres instance.
+    enabled: false
+    # -- schedule to use for the cronjob. defaults to every day at 2:00 (cluster time).
+    # note that cnpg supports a seconds field. more info: https://cloudnative-pg.io/documentation/1.21/backup/#scheduled-backups
+    schedule: "0 0 2 * * *"
+    ownerReference: self # one of "none", "self", "cluster"
+    # -- retention policy of the scheduled backups.
+    retentionPolicy: 30d
+    # -- endpoint to use for the backup object storage. this is not required when
+    # using AWS, but for anything else (e.g. minio), it'd be something like "https://minio.example.com".
+    # if you want to use the built-in minio chart, you can use "http://<release-name>-minio:9000".
+    endpoint: ""
+    # -- bucket to store the backups in (must existing if using the built-in minio chart).
+    bucket: ""
+    # -- path in bucket to store backups. defaults to "postgres/<release-name>"
+    bucketPath: ""
+    accessKeyId:
+      # -- required: name of the secret containing the access key id.
+      existingSecret: ""
+      # -- key in the secret containing the access key id.
+      key: ACCESS_KEY_ID
+    secretAccessKey:
+      # -- required: name of the secret containing the secret access key.
+      existingSecret: ""
+      # -- key in the secret containing the secret access key.
+      key: ACCESS_SECRET_KEY
+    # -- backup compression to use.
+    compression: gzip
+    # -- parallel wal restore concurrency amount. adjust for size of cluster.
+    maxParallel: 8
+  # -- monitoring config (to enable PodMonitor for example).
+  monitoring: {}
+  # -- postgresql config. maps directly to the Cluster "postgresql" field.
+  postgresql: {}
+
 # minio sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/minio
 minio:
   enabled: true
@@ -268,8 +367,7 @@ minio:
   forceUrlAsHttps: true
   mode: standalone
   defaultBuckets: "ol-data" # should not be "outline" because of https://github.com/outline/outline/issues/2068
-  # -- ingress configuration for dex. does not have to be on its own domain (can
-  # be mounted on a subpath like <outline>/dex).
+  # -- ingress configuration for minio.
   apiIngress:
     enabled: true
     ingressClassName: ""
@@ -287,7 +385,7 @@ minio:
     enabled: true
     # -- persistence size to use for minio.
     size: 10Gi
-    # -- storage class to configure for the persistance storage.
+    # -- storage class to configure for the persistence storage.
     storageClass: ""
   extraEnvVars:
     - name: MINIO_UPDATE

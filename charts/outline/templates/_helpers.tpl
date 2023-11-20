@@ -94,6 +94,13 @@ Generates the appropriate URL for Outline.
 {{- end }}
 
 {{- /*
+CNPG cluster name.
+*/}}
+{{- define "outline.cnpgName" -}}
+{{- printf "%s-postgres" (include "outline.fullname" .) -}}
+{{- end }}
+
+{{- /*
 Environment variables passed to the Outline container and related containers.
 */}}
 {{- define "outline.envs" -}}
@@ -182,9 +189,28 @@ Environment variables passed to the Outline container and related containers.
       key: {{ (.Values.postgresql.auth.secretKeys.userPasswordKey | default "password") | quote }}
 - name: DATABASE_URL
   value: "postgresql://{{ .Values.postgresql.auth.username }}:$(DATABASE_PASSWORD)@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
-{{- else if .Values.postgresql.auth.password }}
+{{- else if and .Values.postgresql.auth.username .Values.postgresql.auth.password }}
 - name: DATABASE_URL
   value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
+{{- end }}
+{{- end }}
+{{- if .Values.cnpg.enabled }}
+{{- if .Values.cnpg.auth.generate }}
+- name: DATABASE_USERNAME
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.auth.existingSecret | quote }}
+      key: "username"
+- name: DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.auth.existingSecret | quote }}
+      key: "password"
+- name: DATABASE_URL
+  value: "postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
+{{- else if and .Values.cnpg.auth.username .Values.cnpg.auth.password }}
+- name: DATABASE_URL
+  value: "postgresql://{{ .Values.cnpg.auth.username }}:{{ .Values.cnpg.auth.password }}@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
 {{- end }}
 {{- end }}
 {{- if .Values.minio.enabled }}

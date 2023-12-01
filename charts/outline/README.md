@@ -7,7 +7,7 @@
     <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.3.1-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="App Version" src="https://img.shields.io/badge/app%20version-0.73.1-blue?style=flat-square">
+    <img title="App Version" src="https://img.shields.io/badge/app%20version-0.73.2-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="Chart Type" src="https://img.shields.io/badge/chart%20type--blue?style=flat-square">

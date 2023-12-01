@@ -211,6 +211,14 @@ Environment variables passed to the Outline container and related containers.
 {{- else if and .Values.cnpg.auth.username .Values.cnpg.auth.password }}
 - name: DATABASE_URL
   value: "postgresql://{{ .Values.cnpg.auth.username }}:{{ .Values.cnpg.auth.password }}@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
+{{- else if and .Values.cnpg.auth.username .Values.cnpg.auth.existingSecret }}
+- name: DATABASE_PASSWORD
+  valueFrom:
+    secretKeyRef:
+      name: {{ .Values.cnpg.auth.existingSecret | quote }}
+      key: "password"
+- name: DATABASE_URL
+  value: "postgresql://{{ .Values.cnpg.auth.username }}:$(DATABASE_PASSWORD)@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
 {{- end }}
 {{- end }}
 {{- if .Values.minio.enabled }}

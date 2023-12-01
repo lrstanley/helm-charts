@@ -236,6 +236,6 @@ Environment variables passed to the Outline container and related containers.
   value: "private"
 {{ end }}
 {{- with .Values.environment }}
-{{- toYaml . }}
+{{- toYaml . | nindent 0 }}
 {{- end }}
 {{- end }}

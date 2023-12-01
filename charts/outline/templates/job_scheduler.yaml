@@ -43,7 +43,7 @@ spec:
                   fi
               {{- with .Values.environmentFrom }}
               envFrom:
-                {{- toYaml . | nindent 12 }}
+                {{- toYaml . | nindent 16 }}
               {{- end }}
               env:
                 {{- include "outline.envs" . | nindent 16 }}

@@ -2,8 +2,8 @@ apiVersion: v2
 name: autodelete-discord
 description: AutoDelete Discord Bot
 type: application
-version: 0.6.1
-appVersion: 1.2.0
+version: 0.6.2
+appVersion: 1.2.1
 keywords:
   - discord
   - bot

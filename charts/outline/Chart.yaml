@@ -1,8 +1,8 @@
 apiVersion: v2
 name: outline
 description: The outline helm chart to deploy outline in kubernetes clusters.
-version: 1.4.0
-appVersion: 0.74.0
+version: 1.5.0
+appVersion: 0.75.0
 home: https://getoutline.com
 sources:
   - https://github.com/lrstanley/helm-charts

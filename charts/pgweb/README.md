@@ -4,10 +4,10 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.0.12-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.1.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
-    <img title="App Version" src="https://img.shields.io/badge/app%20version-0.14.3-blue?style=flat-square">
+    <img title="App Version" src="https://img.shields.io/badge/app%20version-0.15.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/pgweb/Chart.yaml">
     <img title="Chart Type" src="https://img.shields.io/badge/chart%20type-application-blue?style=flat-square">

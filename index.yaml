@@ -286,6 +286,50 @@ entries:
     version: 1.0.0
   outline:
   - apiVersion: v2
+    appVersion: 0.77.2
+    created: "2024-07-14T01:48:48.794144805Z"
+    dependencies:
+    - condition: postgresql.enabled
+      name: postgresql
+      repository: https://charts.bitnami.com/bitnami
+      version: 13.2.2
+    - condition: redis.enabled
+      name: redis
+      repository: https://charts.bitnami.com/bitnami
+      version: 18.2.1
+    - condition: minio.enabled
+      name: minio
+      repository: https://charts.bitnami.com/bitnami
+      version: 12.9.0
+    - condition: dex.enabled
+      name: dex
+      repository: https://charts.dexidp.io
+      version: 0.15.3
+    description: The outline helm chart to deploy outline in kubernetes clusters.
+    digest: 050f1eb04899ba53bd2500bc76317b5d16ed8172ea02298d3fd0b907fd4152cb
+    home: https://getoutline.com
+    keywords:
+    - outline
+    - wiki
+    - helm
+    - chart
+    - kubernetes
+    - s3
+    - minio
+    - postgresql
+    - mongodb
+    - knowledge
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: outline
+    sources:
+    - https://github.com/lrstanley/helm-charts
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/outline-1.7.2/outline-1.7.2.tgz
+    version: 1.7.2
+  - apiVersion: v2
     appVersion: 0.77.1
     created: "2024-06-15T14:24:03.423984581Z"
     dependencies:
@@ -1190,4 +1234,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2024-06-15T14:24:03.424156292Z"
+generated: "2024-07-14T01:48:48.794339786Z"

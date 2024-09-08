@@ -2,8 +2,8 @@ apiVersion: v2
 name: pgweb
 description: A Helm chart for pgweb
 type: application
-version: 1.1.0
-appVersion: 0.15.0
+version: 1.2.0
+appVersion: 0.16.1
 keywords:
   - postgres
   - database

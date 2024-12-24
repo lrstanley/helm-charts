@@ -990,6 +990,27 @@ entries:
     version: 1.0.0
   pgweb:
   - apiVersion: v2
+    appVersion: 0.16.2
+    created: "2024-12-24T20:13:08.205133473Z"
+    description: A Helm chart for pgweb
+    digest: 34302b113d58dcf26a12c4b95bc510c9eeed7faa8878ad1a30859f1954ebefdd
+    keywords:
+    - postgres
+    - database
+    - http-server
+    - ui
+    maintainers:
+    - email: me@liamstanley.io
+      name: lrstanley
+      url: https://liam.sh
+    name: pgweb
+    sources:
+    - https://github.com/sosedoff/pgweb
+    type: application
+    urls:
+    - https://github.com/lrstanley/helm-charts/releases/download/pgweb-1.2.1/pgweb-1.2.1.tgz
+    version: 1.2.1
+  - apiVersion: v2
     appVersion: 0.16.1
     created: "2024-09-08T14:46:28.88576745Z"
     description: A Helm chart for pgweb
@@ -1255,4 +1276,4 @@ entries:
     urls:
     - https://github.com/lrstanley/helm-charts/releases/download/pgweb-0.1.0/pgweb-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-08T14:46:28.8859065Z"
+generated: "2024-12-24T20:13:08.205323918Z"

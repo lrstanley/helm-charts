@@ -17,7 +17,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
       - uses: azure/setup-helm@fe7b79cd5ee1e45176fcad797de68ecaf3ca4814
         with:
-          version: v3.15.4
+          version: v3.18.0
       - name: helm-dependencies
         run: |
           while read -r chart;do

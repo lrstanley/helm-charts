@@ -109,7 +109,7 @@ helm install my-release lrstanley/pgweb -f values.yaml
 
 | Name | Email | Url |
 | ---- | ------ | --- |
-| lrstanley | <me@liamstanley.io> | <https://liam.sh> |
+| lrstanley | <liam@liam.sh> | <https://liam.sh> |
 
 ## :raising_hand_man: Support & Assistance
 

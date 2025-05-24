@@ -14,5 +14,5 @@ sources:
   - 'https://github.com/lrstanley/discord-alertmanager'
 maintainers:
   - name: lrstanley
-    email: me@liamstanley.io
+    email: liam@liam.sh
     url: 'https://liam.sh'

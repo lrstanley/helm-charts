@@ -1,0 +1,9 @@
+- todo: support services list? <https://github.com/outline/outline/blob/main/docs/SERVICES.md>
+- auto-updater for dependencies
+- add tests (k8s cluster and all?)
+- <https://github.com/actions/actions-runner-controller/blob/master/.github/workflows/arc-release-runners.yaml>
+- <https://kube-score.com/>
+- <https://github.com/helm/chart-testing-action>
+- use set???
+- helm template -f sample.yaml outline . | k score --ignore-container-cpu-limit --output-format json -
+- outline backup to s3?

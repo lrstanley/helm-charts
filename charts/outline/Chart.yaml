@@ -19,7 +19,7 @@ keywords:
   - knowledge
 maintainers:
   - name: lrstanley
-    email: me@liamstanley.io
+    email: liam@liam.sh
     url: https://liam.sh
 dependencies:
   - name: postgresql

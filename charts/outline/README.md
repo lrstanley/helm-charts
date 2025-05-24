@@ -243,6 +243,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | redis.master.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
 | redis.master.resources.limits | object | `{"memory":"256Mi"}` | the resources limits for the redis master containers. |
 | redis.master.resources.requests | object | `{"cpu":"50m","memory":"256Mi"}` | the resources requests for the redis master containers. |
+| replicas | int | `1` | number of replicas to run |
 | resources.limits | object | `{"memory":"1Gi"}` | resource limits. generally don't recommend applying a limit on cpu. |
 | resources.requests | object | `{"cpu":"250m","memory":"1Gi"}` | resource requests. |
 | scheduler.concurrencyPolicy | string | `"Forbid"` | concurrency policy for the cron. see the following for more info: https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/#concurrency-policy |

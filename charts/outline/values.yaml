@@ -6,6 +6,9 @@ image:
   # -- the image tag to use. defaults to the appVersion in Chart.yaml.
   tag: ""
 
+# -- number of replicas to run
+replicas: 1
+
 nameOverride: ""
 fullnameOverride: ""
 

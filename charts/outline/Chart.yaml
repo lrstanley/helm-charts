@@ -1,7 +1,7 @@
 apiVersion: v2
 name: outline
 description: The outline helm chart to deploy outline in kubernetes clusters.
-version: 1.9.0
+version: 1.10.0
 appVersion: 0.84.0
 home: https://getoutline.com
 sources:
@@ -24,17 +24,17 @@ maintainers:
 dependencies:
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 13.2.2
+    version: 16.7.4
     condition: postgresql.enabled
   - name: redis
     repository: https://charts.bitnami.com/bitnami
-    version: 18.2.1
+    version: 21.1.6
     condition: redis.enabled
   - name: minio
     repository: https://charts.bitnami.com/bitnami
-    version: 12.9.0
+    version: 16.0.10
     condition: minio.enabled
   - name: dex
     repository: https://charts.dexidp.io
-    version: 0.15.3
+    version: 0.23.0
     condition: dex.enabled

@@ -276,7 +276,7 @@ cnpg:
   # -- number of postgres instances to run.
   instances: 1
   # -- image to use for the postgres instances.
-  imageName: ghcr.io/cloudnative-pg/postgresql:14
+  imageName: ghcr.io/cloudnative-pg/postgresql:17
   # -- the image pull policy (generally shouldn't be changed).
   imagePullPolicy: Always
   persistence:
@@ -313,6 +313,11 @@ cnpg:
   recovery: {}
   # -- plugins to load (e.g. for backups).
   plugins: []
+  #  - name: barman-cloud.cloudnative-pg.io
+  #    isWALArchiver: true
+  #    parameters:
+  #      barmanObjectName: outline-postgres-backup
+
   # -- monitoring config (to enable PodMonitor for example).
   monitoring: {}
   # -- postgresql config. maps directly to the Cluster "postgresql" field.

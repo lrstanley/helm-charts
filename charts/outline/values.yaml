@@ -309,59 +309,16 @@ cnpg:
     generateAdmin: true
     # -- secret containing the password to use for the postgres admin user.
     existingAdminSecret: outline-postgres-admin-credentials
-  recovery:
-    # -- enable backup recovery. there are a few prerequisites for this to work:
-    #   1. the existing cnpg cluster must be removed (would recommend NOT deleting the
-    #      ScheduledBackup resource).
-    #   2. cnpg.name must be updated to a new name.
-    #   3. set method and either pitr or objectName (depending on which method you want
-    #      to use).
-    #   4. enable recovery, and run helm upgrade. cnpg should restore from the backup.
-    #   5. disable recovery, and run helm upgrade. cnpg should continue to run normally.
-    enabled: false
-    # -- recovery method to use. one of "pitr" (point in time recovery) or "object"
-    # (backup object). see also the "pitr" and "objectName" fields below.
-    method: pitr
-    # -- point in time to use. example: 2023-08-11 11:14:21.00000+02, will use
-    # closest backup before this time.
-    pitr: ""
-    # -- name of the backup object to use. example: outline-postgres-20231111011600.
-    objectName: ""
-  backup:
-    # -- enable backups for the postgres instance.
-    enabled: false
-    # -- schedule to use for the cronjob. defaults to every day at 2:00 (cluster time).
-    # note that cnpg supports a seconds field. more info: https://cloudnative-pg.io/documentation/1.21/backup/#scheduled-backups
-    schedule: "0 0 2 * * *"
-    ownerReference: self # one of "none", "self", "cluster"
-    # -- retention policy of the scheduled backups.
-    retentionPolicy: 30d
-    # -- endpoint to use for the backup object storage. this is not required when
-    # using AWS, but for anything else (e.g. minio), it'd be something like "https://minio.example.com".
-    # if you want to use the built-in minio chart, you can use "http://<release-name>-minio:9000".
-    endpoint: ""
-    # -- bucket to store the backups in (must existing if using the built-in minio chart).
-    bucket: ""
-    # -- path in bucket to store backups. defaults to "postgres/<release-name>"
-    bucketPath: ""
-    accessKeyId:
-      # -- required: name of the secret containing the access key id.
-      existingSecret: ""
-      # -- key in the secret containing the access key id.
-      key: ACCESS_KEY_ID
-    secretAccessKey:
-      # -- required: name of the secret containing the secret access key.
-      existingSecret: ""
-      # -- key in the secret containing the secret access key.
-      key: ACCESS_SECRET_KEY
-    # -- backup compression to use.
-    compression: gzip
-    # -- parallel wal restore concurrency amount. adjust for size of cluster.
-    maxParallel: 8
+  # -- spec.bootstrap.recovery config, which turns off initdb config when enabled.
+  recovery: {}
+  # -- plugins to load (e.g. for backups).
+  plugins: []
   # -- monitoring config (to enable PodMonitor for example).
   monitoring: {}
   # -- postgresql config. maps directly to the Cluster "postgresql" field.
   postgresql: {}
+  # -- externalClusters config (e.g. for recovery).
+  externalClusters: []
 
 # minio sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/minio
 minio:

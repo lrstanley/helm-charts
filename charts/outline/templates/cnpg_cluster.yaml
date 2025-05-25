@@ -1,20 +1,3 @@
-{{- /* cnpg backup configuration, used for both backups and restores */ -}}
-{{- define "outline.cnpgBackup" -}}
-barmanObjectStore:
-  destinationPath: "s3://{{ required "bucket name required when using backups" .Values.cnpg.backup.bucket }}/{{ if .Values.cnpg.backup.bucketPath }}{{ trimAll "/" .Values.cnpg.backup.bucketPath }}{{ else }}postgres/{{ .Release.Name }}{{ end }}/"
-  endpointURL: {{ .Values.cnpg.backup.endpoint | quote }}
-  serverName: {{ .Values.cnpg.name | quote }}
-  s3Credentials:
-    accessKeyId:
-      name: {{ required "existingSecret is required when enabling backups" .Values.cnpg.backup.accessKeyId.existingSecret | quote }}
-      key: {{ .Values.cnpg.backup.accessKeyId.key | quote }}
-    secretAccessKey:
-      name: {{ required "existingSecret is required when enabling backups" .Values.cnpg.backup.secretAccessKey.existingSecret | quote }}
-      key: {{ .Values.cnpg.backup.secretAccessKey.key | quote }}
-  wal:
-    compression: {{ .Values.cnpg.backup.compression | quote }}
-    maxParallel: {{ .Values.cnpg.backup.maxParallel }}
-{{- end -}}
 {{- if .Values.cnpg.enabled }}
 apiVersion: postgresql.cnpg.io/v1
 kind: Cluster
@@ -49,18 +32,9 @@ spec:
   superuserSecret:
     name: {{ .Values.cnpg.auth.existingAdminSecret | quote }}
   bootstrap:
-  {{- if and .Values.cnpg.recovery.enabled .Values.cnpg.backup.enabled }}
+  {{- if .Values.cnpg.recovery }}
     recovery:
-    {{- if eq .Values.cnpg.recovery.method "pitr" }}
-      source: {{ include "outline.cnpgName" . | quote }}
-      recoveryTarget:
-        targetTime: {{ required "point in time not specified" .Values.cnpg.recovery.pitr | quote }}
-    {{- else if eq .Values.cnpg.recovery.method "object" }}
-      backup:
-        name: {{ required "backup object name required" .Values.cnpg.recovery.objectName | quote }}
-    {{- else }}
-      {{- fail "invalid recovery method specified" }}
-    {{- end }}
+      {{- toYaml .Values.cnpg.recovery | nindent 6 }}
   {{- else }}
     initdb:
       database: {{ .Values.cnpg.database | quote }}
@@ -68,28 +42,12 @@ spec:
       secret:
         name: {{ .Values.cnpg.auth.existingSecret | quote }}
   {{- end }}
-  {{- if .Values.cnpg.backup.enabled }}
-  backup:
-    retentionPolicy: {{ .Values.cnpg.backup.retentionPolicy | quote }}
-    {{- include "outline.cnpgBackup" . | nindent 4 }}
-  {{- if .Values.cnpg.recovery.enabled }}
+  {{- with .Values.cnpg.plugins }}
+  plugins:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  {{- with .Values.cnpg.externalClusters }}
   externalClusters:
-    - name: {{ include "outline.cnpgName" . | quote }}
-      {{- include "outline.cnpgBackup" . | nindent 6 }}
+    {{- toYaml . | nindent 4 }}
   {{- end }}
-  {{- end }}
----
-{{- if .Values.cnpg.backup.enabled }}
-apiVersion: postgresql.cnpg.io/v1
-kind: ScheduledBackup
-metadata:
-  name: {{ include "outline.cnpgName" . | quote }}
-  labels:
-    {{- include "outline.labels" . | nindent 4 }}
-spec:
-  schedule: {{ .Values.cnpg.backup.schedule | quote }}
-  backupOwnerReference: {{ .Values.cnpg.backup.ownerReference | quote }}
-  cluster:
-    name: {{ include "outline.cnpgName" . | quote }}
-{{- end }}
 {{- end }}

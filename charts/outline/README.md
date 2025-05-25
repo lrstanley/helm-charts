@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.9.0-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-1.10.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-0.84.0-blue?style=flat-square">
@@ -97,10 +97,10 @@ helm install my-release lrstanley/outline -f values.yaml
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.bitnami.com/bitnami | minio | 12.9.0 |
-| https://charts.bitnami.com/bitnami | postgresql | 13.2.2 |
-| https://charts.bitnami.com/bitnami | redis | 18.2.1 |
-| https://charts.dexidp.io | dex | 0.15.3 |
+| https://charts.bitnami.com/bitnami | minio | 16.0.10 |
+| https://charts.bitnami.com/bitnami | postgresql | 16.7.4 |
+| https://charts.bitnami.com/bitnami | redis | 21.1.6 |
+| https://charts.dexidp.io | dex | 0.23.0 |
 
 ## :gear: Helm Configuration Values
 
@@ -118,7 +118,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | cnpg.database | string | `"outline"` | database name to use for outline. |
 | cnpg.enabled | bool | `false` | enable cnpg postgres cluster. |
 | cnpg.externalClusters | list | `[]` | externalClusters config (e.g. for recovery). |
-| cnpg.imageName | string | `"ghcr.io/cloudnative-pg/postgresql:14"` | image to use for the postgres instances. |
+| cnpg.imageName | string | `"ghcr.io/cloudnative-pg/postgresql:17"` | image to use for the postgres instances. |
 | cnpg.imagePullPolicy | string | `"Always"` | the image pull policy (generally shouldn't be changed). |
 | cnpg.instances | int | `1` | number of postgres instances to run. |
 | cnpg.monitoring | object | `{}` | monitoring config (to enable PodMonitor for example). |

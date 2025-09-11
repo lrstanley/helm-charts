@@ -182,16 +182,16 @@ Environment variables passed to the Outline container and related containers.
 {{- end }}
 {{- if .Values.postgresql.enabled }}
 {{- if .Values.postgresql.auth.generate }}
-- name: DATABASE_PASSWORD
+- name: DATABASE_PASS
   valueFrom:
     secretKeyRef:
       name: {{ .Values.postgresql.auth.existingSecret | quote }}
       key: {{ (.Values.postgresql.auth.secretKeys.userPasswordKey | default "password") | quote }}
 - name: DATABASE_URL
-  value: "postgresql://{{ .Values.postgresql.auth.username }}:$(DATABASE_PASSWORD)@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
+  value: "postgres://{{ .Values.postgresql.auth.username }}:$(DATABASE_PASS)@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
 {{- else if and .Values.postgresql.auth.username .Values.postgresql.auth.password }}
 - name: DATABASE_URL
-  value: "postgresql://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
+  value: "postgres://{{ .Values.postgresql.auth.username }}:{{ .Values.postgresql.auth.password }}@{{ .Release.Name }}-postgresql:{{ .Values.postgresql.primary.service.ports.postgresql }}/{{ .Values.postgresql.auth.database }}"
 {{- end }}
 {{- end }}
 {{- if .Values.cnpg.enabled }}
@@ -201,24 +201,24 @@ Environment variables passed to the Outline container and related containers.
     secretKeyRef:
       name: {{ .Values.cnpg.auth.existingSecret | quote }}
       key: "username"
-- name: DATABASE_PASSWORD
+- name: DATABASE_PASS
   valueFrom:
     secretKeyRef:
       name: {{ .Values.cnpg.auth.existingSecret | quote }}
       key: "password"
 - name: DATABASE_URL
-  value: "postgresql://$(DATABASE_USERNAME):$(DATABASE_PASSWORD)@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
+  value: "postgres://$(DATABASE_USERNAME):$(DATABASE_PASS)@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
 {{- else if and .Values.cnpg.auth.username .Values.cnpg.auth.password }}
 - name: DATABASE_URL
-  value: "postgresql://{{ .Values.cnpg.auth.username }}:{{ .Values.cnpg.auth.password }}@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
+  value: "postgres://{{ .Values.cnpg.auth.username }}:{{ .Values.cnpg.auth.password }}@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
 {{- else if and .Values.cnpg.auth.username .Values.cnpg.auth.existingSecret }}
-- name: DATABASE_PASSWORD
+- name: DATABASE_PASS
   valueFrom:
     secretKeyRef:
       name: {{ .Values.cnpg.auth.existingSecret | quote }}
       key: "password"
 - name: DATABASE_URL
-  value: "postgresql://{{ .Values.cnpg.auth.username }}:$(DATABASE_PASSWORD)@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
+  value: "postgres://{{ .Values.cnpg.auth.username }}:$(DATABASE_PASS)@{{ include "outline.cnpgName" . }}-rw:5432/{{ .Values.cnpg.database }}"
 {{- end }}
 {{- end }}
 {{- if .Values.minio.enabled }}

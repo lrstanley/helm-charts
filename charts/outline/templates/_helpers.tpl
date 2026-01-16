@@ -127,7 +127,7 @@ Environment variables passed to the Outline container and related containers.
   value: {{ .Values.outline.enableUpdates | quote }}
 - name: WEB_CONCURRENCY
   value: {{ .Values.outline.webConcurrency | quote }}
-- name: MAXIMUM_IMPORT_SIZE
+- name: FILE_STORAGE_IMPORT_MAX_SIZE
   value: {{ printf "%0.f" .Values.outline.maximumImportSize | quote }}
 - name: LOG_LEVEL
   value: {{ .Values.outline.logLevel | quote }}

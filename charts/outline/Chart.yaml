@@ -1,7 +1,7 @@
 apiVersion: v2
 name: outline
 description: The outline helm chart to deploy outline in kubernetes clusters.
-version: 2.0.0
+version: 2.0.1
 appVersion: 1.2.0
 home: https://getoutline.com
 sources:
@@ -36,5 +36,5 @@ dependencies:
     condition: minio.enabled
   - name: dex
     repository: https://charts.dexidp.io
-    version: 0.23.0
+    version: 0.24.0
     condition: dex.enabled

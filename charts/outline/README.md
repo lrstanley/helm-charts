@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-2.0.0-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-2.0.1-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-1.2.0-blue?style=flat-square">
@@ -100,7 +100,7 @@ helm install my-release lrstanley/outline -f values.yaml
 | https://charts.bitnami.com/bitnami | minio | 16.0.10 |
 | https://charts.bitnami.com/bitnami | postgresql | 16.7.4 |
 | https://charts.bitnami.com/bitnami | redis | 21.1.6 |
-| https://charts.dexidp.io | dex | 0.23.0 |
+| https://charts.dexidp.io | dex | 0.24.0 |
 
 ## :gear: Helm Configuration Values
 

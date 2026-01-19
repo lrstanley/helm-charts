@@ -195,28 +195,29 @@ outline:
     requests: 1000
     durationWindow: 60
 
-# redis sub-chart configuration. more info: https://artifacthub.io/packages/helm/bitnami/redis
+# redis configuration.
 redis:
   # -- set to true to have the chart create a redis instance (and configure outline to use it).
   enabled: true
-  # -- the redis architecture to use. can be standalone or replication.
-  architecture: standalone
-  master:
-    persistence:
-      # -- set to true to enable persistence for redis.
-      enabled: true
-      # -- persistence size to use for redis.
-      size: 1Gi
-      # -- storage class to configure for the persistence storage.
-      storageClass: ""
-    resources:
-      # -- the resources requests for the redis master containers.
-      requests:
-        cpu: 50m
-        memory: 256Mi
-      # -- the resources limits for the redis master containers.
-      limits:
-        memory: 256Mi
+  image:
+    repository: docker.io/redis
+    tag: "8.4.0"
+    pullPolicy: IfNotPresent
+  persistence:
+    # -- set to true to enable persistence for redis.
+    enabled: true
+    # -- persistence size to use for redis.
+    size: 1Gi
+    # -- storage class to configure for the persistence storage.
+    storageClass: ""
+  resources:
+    # -- the resources requests for the redis containers.
+    requests:
+      cpu: 50m
+      memory: 256Mi
+    # -- the resources limits for the redis containers.
+    limits:
+      memory: 256Mi
   auth:
     # -- set to true to enable redis auth.
     enabled: true
@@ -229,6 +230,10 @@ redis:
     existingSecret: outline-redis-credentials
     # -- the existing secret key to use for redis auth.
     existingSecretPasswordKey: password
+  service:
+    ports:
+      # -- redis service port.
+      redis: 6379
 
 # postgresql sub-chart configuration. see more: https://artifacthub.io/packages/helm/bitnami/postgresql
 postgresql:

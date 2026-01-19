@@ -1,0 +1,19 @@
+{{- if .Values.redis.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-redis-master
+  labels:
+    {{- include "outline.labels" . | nindent 4 }}
+    app.kubernetes.io/component: redis
+spec:
+  type: ClusterIP
+  ports:
+  - name: redis
+    port: {{ .Values.redis.service.ports.redis }}
+    targetPort: redis
+    protocol: TCP
+  selector:
+    {{- include "outline.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: redis
+{{- end }}

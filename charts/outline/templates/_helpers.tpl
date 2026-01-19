@@ -174,10 +174,10 @@ Environment variables passed to the Outline container and related containers.
       key: "ioredis"
 {{- else if and .Values.redis.auth.enabled .Values.redis.auth.password }}
 - name: REDIS_URL
-  value: "redis://{{ .Values.redis.auth.password }}@{{ .Release.Name }}-redis-master:{{ .Values.redis.master.service.ports.redis }}"
+  value: "redis://{{ .Values.redis.auth.password }}@{{ .Release.Name }}-redis-master:{{ .Values.redis.service.ports.redis }}"
 {{- else }}
 - name: REDIS_URL
-  value: "redis://{{ .Release.Name }}-redis-master:{{ .Values.redis.master.service.ports.redis }}"
+  value: "redis://{{ .Release.Name }}-redis-master:{{ .Values.redis.service.ports.redis }}"
 {{- end }}
 {{- end }}
 {{- if .Values.postgresql.enabled }}

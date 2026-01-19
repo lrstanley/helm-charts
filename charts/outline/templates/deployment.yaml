@@ -52,7 +52,7 @@ spec:
               done
               {{- end }}
               {{- if .Values.redis.enabled }}
-              until nc -w 5 -z {{ .Release.Name }}-redis-master {{ .Values.redis.master.service.ports.redis }};do
+              until nc -w 5 -z {{ .Release.Name }}-redis-master {{ .Values.redis.service.ports.redis }};do
                 echo "waiting for redis"
                 sleep 2
               done

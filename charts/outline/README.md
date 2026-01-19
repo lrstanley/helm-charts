@@ -4,7 +4,7 @@
 
 <p align="center">
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
-    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-2.1.0-blue?style=flat-square">
+    <img title="Chart Version" src="https://img.shields.io/badge/chart%20version-2.2.0-blue?style=flat-square">
   </a>
   <a href="https://github.com/lrstanley/helm-charts/blob/master/charts/outline/Chart.yaml">
     <img title="App Version" src="https://img.shields.io/badge/app%20version-1.3.0-blue?style=flat-square">
@@ -99,7 +99,6 @@ helm install my-release lrstanley/outline -f values.yaml
 |------------|------|---------|
 | https://charts.bitnami.com/bitnami | minio | 16.0.10 |
 | https://charts.bitnami.com/bitnami | postgresql | 16.7.4 |
-| https://charts.bitnami.com/bitnami | redis | 21.1.6 |
 | https://charts.dexidp.io | dex | 0.24.0 |
 
 ## :gear: Helm Configuration Values
@@ -217,18 +216,21 @@ helm install my-release lrstanley/outline -f values.yaml
 | postgresql.primary.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
 | postgresql.primary.resources.limits | object | `{"memory":"512Mi"}` | the resources limits for the postgres primary containers. |
 | postgresql.primary.resources.requests | object | `{"cpu":"100m","memory":"512Mi"}` | the resources requests for the postgres primary containers. |
-| redis.architecture | string | `"standalone"` | the redis architecture to use. can be standalone or replication. |
 | redis.auth.enabled | bool | `true` | set to true to enable redis auth. |
 | redis.auth.existingSecret | string | `"outline-redis-credentials"` | the existing secret to use for redis auth. |
 | redis.auth.existingSecretPasswordKey | string | `"password"` | the existing secret key to use for redis auth. |
 | redis.auth.generate | bool | `true` | set to true to generate a set of credentials (and configure outline to use it). |
 | redis.auth.password | string | `""` | the password to use for redis auth. leave empty (with generate set to true) to generate a password automatically. |
 | redis.enabled | bool | `true` | set to true to have the chart create a redis instance (and configure outline to use it). |
-| redis.master.persistence.enabled | bool | `true` | set to true to enable persistence for redis. |
-| redis.master.persistence.size | string | `"1Gi"` | persistence size to use for redis. |
-| redis.master.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
-| redis.master.resources.limits | object | `{"memory":"256Mi"}` | the resources limits for the redis master containers. |
-| redis.master.resources.requests | object | `{"cpu":"50m","memory":"256Mi"}` | the resources requests for the redis master containers. |
+| redis.image.pullPolicy | string | `"IfNotPresent"` |  |
+| redis.image.repository | string | `"docker.io/redis"` |  |
+| redis.image.tag | string | `"8.4.0"` |  |
+| redis.persistence.enabled | bool | `true` | set to true to enable persistence for redis. |
+| redis.persistence.size | string | `"1Gi"` | persistence size to use for redis. |
+| redis.persistence.storageClass | string | `""` | storage class to configure for the persistence storage. |
+| redis.resources.limits | object | `{"memory":"256Mi"}` | the resources limits for the redis containers. |
+| redis.resources.requests | object | `{"cpu":"50m","memory":"256Mi"}` | the resources requests for the redis containers. |
+| redis.service.ports.redis | int | `6379` | redis service port. |
 | replicas | int | `1` | number of replicas to run |
 | resources.limits | object | `{"memory":"1Gi"}` | resource limits. generally don't recommend applying a limit on cpu. |
 | resources.requests | object | `{"cpu":"250m","memory":"1Gi"}` | resource requests. |
